@@ -10,4 +10,9 @@ class DefaultController extends Controller
     {
         return $this->render('JKHBundle:Default:index.html.twig');
     }
+
+    public function authAction()
+    {
+        return $this->render('JKHBundle:Default:auth.html.twig');
+    }
 }

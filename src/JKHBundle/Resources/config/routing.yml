@@ -1,3 +1,7 @@
 jkh_homepage:
     path:     /
     defaults: { _controller: JKHBundle:Default:index }
+
+_jkh_auth-step1:
+    path:     /auth
+    defaults: { _controller: JKHBundle:Default:auth }

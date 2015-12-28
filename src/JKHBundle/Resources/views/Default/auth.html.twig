@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>_ ЖКХ _</title>
+	<link href='http://fonts.googleapis.com/css?family=PT+Sans:700,400&subset=latin,cyrillic-ext' rel='stylesheet' type='text/css'>
+	<!--[if IE ]><link rel="stylesheet" href="css/ie.css" type="text/css" media="screen, projection" /><![endif]-->
+	<link rel="stylesheet" href="{{ asset('bundles/jkh/css/style.css') }}" type="text/css" media="screen, projection" />
+	<script type="text/javascript" src="{{ asset('bundles/jkh/js/jquery.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/jkh/js/jquery.limit.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/jkh/js/jquery.formstyler.min.js') }}"></script>
+	<link rel="stylesheet" href="{{ asset('bundles/jkh/css/jquery.formstyler.css') }}" type="text/css" />
+	<script type="text/javascript" src="{{ asset('bundles/jkh/js/script.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/jkh/js/inputstyler.js') }}"></script>
+</head>
+
+
+<body class="base">
+
+<div class="wrapper">
+
+	<input id="test_1" type="button" value="7 Регистрация">
+
+	<div id="registration" class="modal-window-wrapper"> <!-- Регистрация -->
+		<div class="div-registration">
+			<div class="btn-close"><span class="exit-big">&nbsp;</span></div>
+			<div class="div-registration_title">Регистрация</div>
+			<ul class="ul-clear">
+				<li><span class="div-registration_li active">Данные лицевого</span><span>&rarr;</span></li>
+				<li><span class="div-registration_li">Данные для входа</span><span>&rarr;</span></li>
+				<li><span class="div-registration_li">Готово!</span></li>
+			</ul>
+			<div class="div-registration_wrapper">
+				<div class="id-person">
+					Личный номер владельца жилья<br>
+					<input type="text">
+				</div>
+				<div class="score">
+					Номер лицевого счёта<br>
+					<input type="text">			
+				</div>			
+				<input type="button" value="Далее">
+			</div>
+			<div class="div-registration_footer">
+				Сожалеем, ваш дом не подключён к нашей системе.
+				Вы можете зарегистрироваться с другим лицевым
+				счётом или оставить заявку на подключение этого.
+				<div class="div-registration_footer_button">
+					<input type="text" value="E-mail для связи с вами">	
+					<input type="button" value="Оставить заявку"  class="orange-43">
+				</div>
+			</div>		
+		</div>	
+	</div>
+
+</div>
+
+
+</body>
+</html>
