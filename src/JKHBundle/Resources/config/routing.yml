@@ -5,3 +5,19 @@ jkh_homepage:
 _jkh_auth-step1:
     path:     /auth
     defaults: { _controller: JKHBundle:Default:auth }
+
+_jkh_auth-step2:
+    path:     /auth2
+    defaults: { _controller: JKHBundle:Default:auth2 }
+
+_jkh_auth-step3:
+    path:     /auth3
+    defaults: { _controller: JKHBundle:Default:auth3 }
+
+_jkh_auth-step4:
+    path:     /auth4
+    defaults: { _controller: JKHBundle:Default:auth4 }
+
+_jkh_auth-step5:
+    path:     /auth5
+    defaults: { _controller: JKHBundle:Default:auth5 }
