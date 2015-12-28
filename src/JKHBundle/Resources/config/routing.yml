@@ -1,0 +1,3 @@
+jkh_homepage:
+    path:     /
+    defaults: { _controller: JKHBundle:Default:index }
