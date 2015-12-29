@@ -10,7 +10,7 @@ class DefaultController extends Controller
 {
     public function indexAction()
     {
-        //$_SESSION["is_auth"] = false;
+        $_SESSION["is_auth"] = false;
         if ($_SESSION["is_auth"] == true) {
             return $this->render('JKHBundle:Default:index.html.twig',
                                     array('is_auth' => true,

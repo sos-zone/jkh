@@ -279,51 +279,56 @@
       </div>
       <div class="remark-2">Все поля обязательны для заполнения</div>
     </div>
-    <table width='100%'>
-      <tr>
-        <td width="150">Место обращения:</td>
-        <td width="365"><input type="text" class="gray-input"></td>
-        <td rowspan="5" class="right-row">
-          Вы также можете прикрепить дополнительные документы, более полно раскрывающие суть вашего обращения:<br>
-          <div style="position:relative">
-          <input   class="input-file" type="file">&nbsp;<span class="delete">&nbsp;</span><br>
-          </div>
-          <div class="remark">Допустимые форматы: doc, docx, rtf, pdf, txt, jpg, rar, zip. Размер не более 1МБ.</div> 
-        </td>       
-      </tr>
-      <tr>
-        <td>ФИО:</td>
-        <td><input type="text"></td>
-      </tr>
-      <tr>
-        <td>Адрес проживания:</td>
-        <td><input type="text"></td>
-      </tr> 
-      <tr class="table-red">
-        <td>Контактный телефон:</td>
-        <td><input type="text"></td>
-      </tr>
-      <tr>
-        <td>Ответить:</td>
-        <td style="line-height: 25px;" class="div-elektron_radio">
-          <input type="radio" name="browser" value="" class="radio-input radio-mail" checked><span class="radio-text">по эл. почте: <input type="text" class="e-mail"></span><br/>
-          <input type="radio" name="browser" value="" class="radio-input"><span class="radio-text">на почту по адресу проживания</span>
-        </td>
-      </tr>
-      <tr >
-        <td>Текст сообщения:</td>
-        <td>
-          <div class='div-elektron-textarea'>
-            <textarea>Мах кол-во символов меняется в script.js</textarea>
-            <div class="chars"></div>
-          </div>
-        </td>
-        <td class="td_info">
-          Заполните все обязательные поля<br><br>
-          <input type="button" value="Отправить обращение" class="orange-43"> &nbsp;<a href="#">Отмена</a>
-        </td>
-      </tr>     
-    </table>
+    <form id="e-tweet-form">
+      <table width='100%'>
+        <tr>
+          <td width="150">Место обращения:</td>
+          <td width="365">
+              <input type="text" class="gray-input" required>
+              <input type="hidden" id="orgid-id" name="org-id" value="">
+          </td>
+          <td rowspan="5" class="right-row">
+            Вы также можете прикрепить дополнительные документы, более полно раскрывающие суть вашего обращения:<br>
+            <div style="position:relative">
+            <input   class="input-file" type="file">&nbsp;<span class="delete">&nbsp;</span><br>
+            </div>
+            <div class="remark">Допустимые форматы: doc, docx, rtf, pdf, txt, jpg, rar, zip. Размер не более 1МБ.</div> 
+          </td>       
+        </tr>
+        <tr>
+          <td>ФИО:</td>
+          <td><input type="text" required></td>
+        </tr>
+        <tr>
+          <td>Адрес проживания:</td>
+          <td><input type="text" required></td>
+        </tr> 
+        <tr class="table-red">
+          <td>Контактный телефон:</td>
+          <td><input type="text" required></td>
+        </tr>
+        <tr>
+          <td>Ответить:</td>
+          <td style="line-height: 25px;" class="div-elektron_radio">
+            <input type="radio" name="browser" value="" class="radio-input radio-mail" checked><span class="radio-text">по эл. почте: <input type="text" class="e-mail"></span><br/>
+            <input type="radio" name="browser" value="" class="radio-input"><span class="radio-text">на почту по адресу проживания</span>
+          </td>
+        </tr>
+        <tr >
+          <td>Текст сообщения:</td>
+          <td>
+            <div class='div-elektron-textarea'>
+              <textarea>Мах кол-во символов меняется в script.js</textarea>
+              <div class="chars"></div>
+            </div>
+          </td>
+          <td class="td_info">
+            Заполните все обязательные поля<br><br>
+            <input type="submit" value="Отправить обращение" class="orange-43"> &nbsp;<a href="#">Отмена</a>
+          </td>
+        </tr>     
+      </table>
+    </form>
   </div>
 </div>
 

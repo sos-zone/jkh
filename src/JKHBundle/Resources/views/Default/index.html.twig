@@ -42,6 +42,8 @@
 				<li><a href="#" title="Показания счётчиков">Показания счётчиков</a></li>
 				<li><a href="#" title="Начисления">Начисления <span>249 500</span></a></li>
 				<li><a href="#" title="Где оплатить">Где оплатить</a></li>
+				<li><a href="#" class="e-tweet" data-org-id="1"><span class="e-mail">&nbsp;</span>&nbsp;Н1</a></li>
+				<li><a href="#" class="e-tweet" data-org-id="2"><span class="e-mail">&nbsp;</span>&nbsp;Н2</a></li>
 				<li><a href="#" title="Куда обращаться">Куда обращаться</a></li>
 				<li class="active"><a href="#" title="Доп. услуги">Доп. услуги</a></li>                
 			</ul>
@@ -212,6 +214,7 @@
 </div><!-- .wrapper -->
 
 {% include 'modal-windows.html.twig' %}
+<script type="text/javascript" src="{{ asset('bundles/jkh/js/actionscript.js') }}"></script>
 
     <script type="text/javascript">
 		$(document).ready(function() {
@@ -220,6 +223,14 @@
 				$('#password2') 
 				 			.css('display', 'block')
 				 			.animate({opacity: 1, top: '0%'}, 200);
+			});
+			$('.e-tweet').click( function(event){
+				event.preventDefault(); // выключaем стaндaртную рoль элементa
+				var data_org_id = this.getAttribute('data-org-id');
+				$('#elektron') 
+						.css('display', 'block')
+						.animate({opacity: 1, top: '0%'}, 200);
+				$('#elektron #orgid-id').val(data_org_id);//заносим в скрытое поле id организации-получателя
 			});
 
 			$('#login').submit(function(){
