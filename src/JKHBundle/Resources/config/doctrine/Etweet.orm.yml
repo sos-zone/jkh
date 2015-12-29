@@ -1,0 +1,56 @@
+JKHBundle\Entity\Etweet:
+    type: entity
+    table: null
+    repositoryClass: JKHBundle\Repository\EtweetRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        etweetAddress:
+            type: string
+            length: 255
+            column: etweet_address
+        organizationId:
+            type: integer
+            column: organization_id
+        etweetAuthor:
+            type: string
+            length: 255
+            column: etweet_author
+        etweetAuthorAddress:
+            type: string
+            length: 255
+            column: etweet_author_address
+        etweetAuthorPhone:
+            type: string
+            length: '32'
+            column: etweet_author_phone
+        etweetAuthorEmail:
+            type: string
+            length: '64'
+            nullable: true
+            column: etweet_author_email
+        etweetAnswerToEmail:
+            type: boolean
+            column: etweet_answer_to_email
+        etweetAnswerToPostadds:
+            type: boolean
+            column: etweet_answer_to_postadds
+        etweetText:
+            type: string
+            length: '2048'
+            column: etweet_text
+        etweetFileName:
+            type: string
+            length: 255
+            nullable: true
+            column: etweet_file_name
+        etweetFilePath:
+            type: string
+            length: 255
+            nullable: true
+            column: etweet_file_path
+    lifecycleCallbacks: {  }

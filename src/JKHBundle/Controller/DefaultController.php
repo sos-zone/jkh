@@ -5,6 +5,7 @@ namespace JKHBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use JKHBundle\Entity\User;
+use JKHBundle\Entity\Etweet;
 
 class DefaultController extends Controller
 {
@@ -140,4 +141,52 @@ class DefaultController extends Controller
         $_SESSION["is_auth"] = false;
         return new Response('До свидания'); 
     }
+
+    public function etweetAction()
+    {
+        $etweetAddress = trim($_POST["etweet_address"]);
+        $organizationId = trim($_POST["organization_id"]);
+        $etweetAuthor = trim($_POST["etweet_author"]);
+        $etweetAuthorAddress = trim($_POST["etweet_author_address"]);
+        $etweetAuthorPhone = trim($_POST["etweet_author_phone"]);
+        $etweetAuthorEmail = trim($_POST["etweet_author_email"]);
+        $etweetAnswerToEmail = true;
+        $etweetAnswerToPostadds = false;
+        $etweetText = trim($_POST["etweet_text"]);
+        $etweetFileName = "imagename.jpg";
+        $etweetFilePath = "img/upload/";
+
+/*
+        $etweetAnswerToEmail = trim($_POST["etweet_answer_to_email"]);
+        $etweetAnswerToPostadds = trim($_POST["etweet_answer_to_postadds"]);
+
+        $etweetFileName = trim($_POST["etweet_file_name"]);
+        $etweetFilePath = trim($_POST["etweet_file_name"]);
+*/
+
+
+        $Etweet = new Etweet();
+        $Etweet->setEtweetAddress($etweetAddress);
+        $Etweet->setOrganizationId($organizationId);
+        $Etweet->setEtweetAuthor($etweetAuthor);
+        $Etweet->setEtweetAuthorAddress($etweetAuthorAddress);
+        $Etweet->setEtweetAuthorPhone($etweetAuthorPhone);
+        $Etweet->setEtweetAuthorEmail($etweetAuthorEmail);
+        $Etweet->setEtweetAnswerToEmail($etweetAnswerToEmail);
+        $Etweet->setEtweetAnswerToPostadds($etweetAnswerToPostadds);
+        $Etweet->setEtweetText($etweetText);
+        $Etweet->setEtweetFileName($etweetFileName);
+        $Etweet->setEtweetFilePath($etweetFilePath);
+
+
+        $em = $this->getDoctrine()->getEntityManager();
+        $em->persist($Etweet);
+        $em->flush();
+
+
+        $Etweetid = $Etweet->getId();
+
+
+        return new Response('ID Заявки: '.$Etweetid); 
+    }    
 }

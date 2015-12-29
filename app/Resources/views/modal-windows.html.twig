@@ -284,41 +284,41 @@
         <tr>
           <td width="150">Место обращения:</td>
           <td width="365">
-              <input type="text" class="gray-input" required>
-              <input type="hidden" id="orgid-id" name="org-id" value="">
+              <input type="text" class="gray-input" name="etweet_address" required>
+              <input type="hidden" id="orgid-id" name="organization_id" value="0">
           </td>
           <td rowspan="5" class="right-row">
             Вы также можете прикрепить дополнительные документы, более полно раскрывающие суть вашего обращения:<br>
             <div style="position:relative">
-            <input   class="input-file" type="file">&nbsp;<span class="delete">&nbsp;</span><br>
+            <input   class="input-file" type="file" name="etweet_file_name">&nbsp;<span class="delete">&nbsp;</span><br>
             </div>
             <div class="remark">Допустимые форматы: doc, docx, rtf, pdf, txt, jpg, rar, zip. Размер не более 1МБ.</div> 
           </td>       
         </tr>
         <tr>
           <td>ФИО:</td>
-          <td><input type="text" required></td>
+          <td><input type="text" name="etweet_author" required></td>
         </tr>
         <tr>
           <td>Адрес проживания:</td>
-          <td><input type="text" required></td>
+          <td><input type="text" name="etweet_author_address" required></td>
         </tr> 
         <tr class="table-red">
           <td>Контактный телефон:</td>
-          <td><input type="text" required></td>
+          <td><input type="text" name="etweet_author_phone" required></td>
         </tr>
         <tr>
           <td>Ответить:</td>
           <td style="line-height: 25px;" class="div-elektron_radio">
-            <input type="radio" name="browser" value="" class="radio-input radio-mail" checked><span class="radio-text">по эл. почте: <input type="text" class="e-mail"></span><br/>
-            <input type="radio" name="browser" value="" class="radio-input"><span class="radio-text">на почту по адресу проживания</span>
+            <input type="radio" name="browser" value="0" class="radio-input radio-mail" checked><span class="radio-text">по эл. почте: <input type="text" class="e-mail" name="etweet_author_email" ></span><br/>
+            <input type="radio" name="browser" value="1" class="radio-input"><span class="radio-text">на почту по адресу проживания</span>
           </td>
         </tr>
         <tr >
           <td>Текст сообщения:</td>
           <td>
             <div class='div-elektron-textarea'>
-              <textarea>Мах кол-во символов меняется в script.js</textarea>
+              <textarea name="etweet_text">Мах кол-во символов меняется в script.js</textarea>
               <div class="chars"></div>
             </div>
           </td>

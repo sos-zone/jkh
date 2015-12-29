@@ -37,3 +37,7 @@ _jkh_login:
 _jkh_logout:
     path:     /logout
     defaults: { _controller: JKHBundle:Default:logout }
+
+_jkh_etweet:
+    path:     /etweet
+    defaults: { _controller: JKHBundle:Default:etweet }

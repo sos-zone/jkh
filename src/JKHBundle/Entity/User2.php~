@@ -168,4 +168,3 @@ class User2
         return $this->fio;
     }
 }
-

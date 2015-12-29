@@ -269,6 +269,20 @@
 				});
 				return false;
 			});
+
+			$("#e-tweet-form").submit(function(){
+				alert("Отправка Электронной заявки");
+				$.ajax({
+					type: "POST",
+					url: "{{ path('_jkh_etweet') }}",
+					data: $(this).serialize(),
+					success: function(data){
+					    alert("Ваша Заявка принята. \n" + data);
+					}
+				});
+				return false;
+			});
+
 		});
     </script>
 
