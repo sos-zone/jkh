@@ -1,0 +1,29 @@
+JKHBundle\Entity\User2:
+    type: entity
+    table: null
+    repositoryClass: JKHBundle\Repository\User2Repository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        indentnum:
+            type: string
+            length: '14'
+            unique: true
+        litzschet:
+            type: integer
+            unique: true
+        email:
+            type: string
+            length: '32'
+            unique: true
+        pass:
+            type: string
+            length: '32'
+        fio:
+            type: string
+            length: '64'
+    lifecycleCallbacks: {  }

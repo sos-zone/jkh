@@ -21,3 +21,19 @@ _jkh_auth-step4:
 _jkh_auth-step5:
     path:     /auth5
     defaults: { _controller: JKHBundle:Default:auth5 }
+
+_jkh_auth-final:
+    path:     /authfin
+    defaults: { _controller: JKHBundle:Default:authfin }
+
+_jkh_recoverypass:
+    path:     /recoverypass
+    defaults: { _controller: JKHBundle:Default:recoverypass }
+
+_jkh_login:
+    path:     /login
+    defaults: { _controller: JKHBundle:Default:login }
+
+_jkh_logout:
+    path:     /logout
+    defaults: { _controller: JKHBundle:Default:logout }

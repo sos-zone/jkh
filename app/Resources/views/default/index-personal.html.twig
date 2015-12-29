@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>{% block title %}_ ЖКХ _{% endblock %}</title>
+
+	{% block stylesheets %}
+		<link rel="stylesheet" href="{{ asset('bundles/jkh/css/jquery.formstyler.css') }}" type="text/css" />
+		<!--[if IE ]><link rel="stylesheet" href="css/ie.css" type="text/css" media="screen, projection" /><![endif]-->
+		<link rel="stylesheet" href="{{ asset('bundles/jkh/css/style.css') }}" type="text/css" media="screen, projection" />
+	{% endblock %}
+
+	{% block fonts %}
+		<link href='http://fonts.googleapis.com/css?family=PT+Sans:700,400&subset=latin,cyrillic-ext' rel='stylesheet' type='text/css'>
+	{% endblock %}
+
+	{% block javascripts %}
+		<script type="text/javascript" src="{{ asset('bundles/jkh/js/jquery.min.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('bundles/jkh/js/jquery.limit.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('bundles/jkh/js/jquery.formstyler.min.js') }}"></script>
+
+		<script type="text/javascript" src="{{ asset('bundles/jkh/js/script.js') }}"></script>
+	    <script type="text/javascript" src="{{ asset('bundles/jkh/js/inputstyler.js') }}"></script>
+	{% endblock %}
+
+</head>
+
+<body class="base">
+
+<div class="wrapper">
+
+	<div class="header">
+		<div class="logo"><a href="#"><img src="img/logo.png" alt="Лого" title="Логотип Компании"></a></div><!--.logo-->
+		<div class="header_user">Якушевский Виталий {{ test }}</div>
+		<div class="header_user_data"><a title="Изменить личные данные" href="#">Изменить личные данные</a></div>
+		<div class="header_user_exit"><a title="Выход" href="#">Выход <span class="exit">&nbsp;</span></a></div>
+		<div class="header_user_personal-account"><a title="Все лицевые счета" href="#"><span class="personal-account">&nbsp;</span>Все лицевые счета</a></div>
+	</div><!-- .header-->
+
+	{% block middle %}
+
+		Content here
+
+	{% endblock %}
+
+
+</div><!-- .wrapper -->
+
+<div class="footer">
+	<div class="footer-inner">
+		<div class="footer_question"><a href="#"><span class="question">&nbsp;</span> Вопросы и ответы</a></div>
+		<ul class="footer-ul ul-clear">
+			<li><a href="#">Справочник организаций</a></li>
+			<li><a href="#">Льготы</a></li>
+			<li><a href="#">Нормативы по теплу</a></li>
+			<li><a href="#">Тарифы</a></li>
+		</ul>
+		<div class="feedback">
+			<a href="#">ОБРАТНАЯ СВЯЗЬ</a>
+		</div>
+		<div class="like">
+                              <div class="b-social">
+                          <div class="soc fb"><img src="{{ asset('bundles/jkh/img/soc-fb.png') }}"></div>
+                          <div class="soc vk"><img src="{{ asset('bundles/jkh/img/soc-vk.png') }}"></div>
+                          <div class="soc tw"><img src="{{ asset('bundles/jkh/img/soc-tw.png') }}"></div>
+                          <div class="soc ok"><img src="{{ asset('bundles/jkh/img/soc-ok.png') }}"></div>
+
+                      </div><!--b-social-->
+        </div>
+		<div class="banner"><a href="#"><img src="img/banner.png" alt=''/></a></div>
+		<div class="footer-like">
+			<a href="#" class="twitter">&nbsp;</a>&nbsp; 
+			<a href="#" class="facebook">&nbsp;</a>&nbsp;
+			<a href="#" class="vk">&nbsp;</a>&nbsp;
+		</div>
+		<div class="copyrights">&copy; 2013, ЖКХ-online</div>
+		<div class="support"><a href="#">Разработка сайта <img src="css/pict/link.png" alt=''/></a></div> 
+
+	</div>
+</div><!-- .footer -->
+
+</body>
+</html>

@@ -11,20 +11,24 @@
 	<script type="text/javascript" src="{{ asset('bundles/jkh/js/jquery.formstyler.min.js') }}"></script>
 	<link rel="stylesheet" href="{{ asset('bundles/jkh/css/jquery.formstyler.css') }}" type="text/css" />
 	<script type="text/javascript" src="{{ asset('bundles/jkh/js/script.js') }}"></script>
-    	<script type="text/javascript" src="{{ asset('bundles/jkh/js/inputstyler.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/jkh/js/inputstyler.js') }}"></script>
 </head>
 
 <body class="base">
 
 <div class="wrapper">
 
-	<div class="header">
-		<div class="logo"><a href="#"><img src="img/logo.png" alt="Лого" title="Логотип Компании"></a></div><!--.logo-->
-		<div class="header_user">Якушевский Виталий</div>
-		<div class="header_user_data"><a title="Изменить личные данные" href="#">Изменить личные данные</a></div>
-		<div class="header_user_exit"><a title="Выход" href="#">Выход <span class="exit">&nbsp;</span></a></div>
-		<div class="header_user_personal-account"><a title="Все лицевые счета" href="#"><span class="personal-account">&nbsp;</span>Все лицевые счета</a></div>
-	</div><!-- .header-->
+
+{% if is_auth == true %}
+	{% include 'header-personal.html.twig' %}
+{% endif %}
+
+{% if is_auth == false %}
+  	{% include 'header-general.html.twig' %}
+{% endif %}
+
+
+
 
 	<div class="middle">
 		<div class="container">
@@ -167,767 +171,9 @@
 				<div class="pad-60"></div>
 			</div><!-- .content-->
 		</div><!-- .container-->
-		
-<!-- модальные START -->
-
-<div id="your_benefits" class="modal-window-wrapper"> <!-- Ваши льготы -->
-	<div class="div-your_benefits">
-		<div class="btn-close"><span class="exit-big">&nbsp;</span></div>
-		<div class="div-your_benefits_title">
-			Ваши льготы
-		</div>
-		<ol>
-			<li>
-				Воины интерна-ты (инвалиды) и нетруд. нераб. чл. их семей, Семьи погибших (умерших) ВИ и нетр. нер чл.
-				<br><p class="remark">Установлена Законом РБ «О статусе Героев Сов.Союза ...» от 21.02.1995 г. № 3599-XII ст.5, 6. Установлена Законом РБ «О статусе Героев Сов.Союза ...» от 21.02.1995 г. № 3599-XII ст.5, 6.</p>
-				<table>
-					<tr>
-						<td colspan=2>
-							Список льготируемых услуг и размер льготы
-						</td>
-						<td width="160">
-							Тип:
-						</td>
-						<td class="font-normal">
-							Чернобыльцы
-						</td>
-					</tr>
-					<tr>
-						<td class="font-normal" width="200">
-							Вода-канализация:
-						</td>
-						<td class="font-normal"  width="160">
-							50%
-						</td>
-						<td>
-							Дата начала:
-						</td>
-						<td class="font-normal">
-							16.12.2007
-						</td>
-					</tr>
-					<tr>
-						<td class="font-normal">
-							Электроэнергия:
-						</td>
-						<td  class="font-normal">
-							75%
-						</td>
-						<td>
-							Дата окончания:
-						</td>
-						<td  class="font-normal">
-							16.12.2007
-						</td>
-					</tr>					
-				</table>
-			</li>
-			<li>
-				Ветераны боевых действий на территории других госуд. (муж. — 60, жен. — 55 л.)
-				<br><span class="remark">Установлена Законом РБ «О статусе Героев Сов.Союза ...» от 21.02.1995 г. № 3599-XII ст.5, 6.</span>
-				<table>
-					<tr>
-						<td colspan=2>
-							Список льготируемых услуг и размер льготы
-						</td>
-						<td width="160">
-							Тип:
-						</td>
-						<td class="font-normal">
-							Чернобыльцы
-						</td>
-					</tr>
-					<tr>
-						<td class="font-normal" width="200">
-							Вода-канализация:
-						</td>
-						<td class="font-normal"  width="160">
-							50%
-						</td>
-						<td>
-							Дата начала:
-						</td>
-						<td class="font-normal">
-							16.12.2007
-						</td>
-					</tr>
-					<tr>
-						<td class="font-normal">
-							Электроэнергия:
-						</td>
-						<td  class="font-normal">
-							75%
-						</td>
-						<td>
-							Дата окончания:
-						</td>
-						<td  class="font-normal">
-							16.12.2007
-						</td>
-					</tr>					
-				</table>				
-			</li>
-			<li>
-				Воины интерна-ты (инвалиды) и нетруд. нераб. чл. их семей, Семьи погибших (умерших) ВИ и нетр. нер чл.
-				<br><span class="remark">Установлена Законом РБ «О статусе Героев Сов.Союза ...» от 21.02.1995 г. № 3599-XII ст.5, 6.</span>
-				<table>
-					<tr>
-						<td colspan=2>
-							Список льготируемых услуг и размер льготы
-						</td>
-						<td width="160">
-							Тип:
-						</td>
-						<td class="font-normal">
-							Чернобыльцы
-						</td>
-					</tr>
-					<tr>
-						<td class="font-normal" width="200">
-							Вода-канализация:
-						</td>
-						<td class="font-normal"  width="160">
-							50%
-						</td>
-						<td>
-							Дата начала:
-						</td>
-						<td class="font-normal">
-							16.12.2007
-						</td>
-					</tr>
-					<tr>
-						<td class="font-normal">
-							Электроэнергия:
-						</td>
-						<td  class="font-normal">
-							75%
-						</td>
-						<td>
-							Дата окончания:
-						</td>
-						<td  class="font-normal">
-							16.12.2007
-						</td>
-					</tr>					
-				</table>				
-			</li>
-		</ol>
-	</div>
-
-</div>
-
-<div id="new_add" class="modal-window-wrapper"> <!-- Добавление-редактирование объявления -->
-	<div class="div-new_add">
-		<div class="btn-close"><span class="exit-big">&nbsp;</span></div>
-		<table width='100%'>
-			<tr>
-				<td width="150">&nbsp;</td>
-				<td class="div-new_add_title">
-					Разместить объявление
-				</td>				
-			</tr>
-			<tr>
-				<td>&nbsp;</td>
-				<td class="remark">
-					Все поля желательны для заполнения
-				</td>				
-			</tr>
-			<tr>
-				<td>Тема объявления:</td>
-				<td class="">
-					<input type="text">
-				</td>				
-			</tr>
-			<tr>
-				<td>Полный текст:</td>
-				<td class="">
-					<div class='div-new_add-textarea'>
-						<textarea>Мах кол-во символов меняется в script.js</textarea>
-						<div class="chars"></div>
-					</div>
-				</td>				
-			</tr>
-			<tr>
-				<td>Изображение:</td>
-				<td class="">
-                		<div class="line">
-					<input class="input-file" type="file"><span class="delete">&nbsp;</span></div>
-					<input class="input-file" type="file"><br>
-					<a href="#" class="add-file"><span class="plus">&nbsp;</span> Ещё изображение</a>
-					<div class="pad-20"></div>
-					
-				</td>				
-			</tr>
-			<tr>
-				<td>Ваши контакты:</td>
-				<td class="">
-					<input type="text">
-				</td>				
-			</tr>
-			<tr>
-				<td>&nbsp;</td>
-				<td class="text-middle">
-					<input type="button" value="Разместить обьявление" class="orange-43">&nbsp;
-					<a href="#"> Отмена</a>
-				</td>				
-			</tr>			
-		</table>
-
-	</div>
-</div>
-
-<div id="new_add2" class="modal-window-wrapper"> <!-- Добавление-редактирование объявления 2 -->
-	<div class="div-new_add">
-		<div class="btn-close"><span class="exit-big">&nbsp;</span></div>
-		<table width='100%'>
-			<tr>
-				<td width="150">&nbsp;</td>
-				<td class="div-new_add_title">
-					Редактировать объявление
-				</td>				
-			</tr>
-			<tr>
-				<td>&nbsp;</td>
-				<td class="remark">
-					Все поля желательны для заполнения
-				</td>				
-			</tr>
-			<tr>
-				<td>Тема объявления:</td>
-				<td class="">
-					<input type="text">
-				</td>				
-			</tr>
-			<tr>
-				<td>Полный текст:</td>
-				<td class="">
-					<div class='div-new_add-textarea'>
-						<textarea>Мах кол-во символов меняется в script.js</textarea>
-						<div class="chars"></div>
-					</div>
-				</td>				
-			</tr>
-			<tr>
-				<td>Изображение:</td>
-				<td class="div-new_add_td-input">
-	                		<div class="line">
-					<input class="input-file" type="file"><span class="delete">&nbsp;</span></div>
-					<input class="input-file" type="file"><br>
-					<a href="#" class="add-file"><span class="plus">&nbsp;</span> Ещё изображение</a>
-					<div class="pad-20"></div>
-					
-				</td>				
-			</tr>
-			<tr>
-				<td>Ваши контакты:</td>
-				<td class="">
-					<input type="text">
-				</td>				
-			</tr>
-			<tr>
-				<td>&nbsp;</td>
-				<td class="text-middle">
-					<input type="button" value="Разместить обьявление" class="orange-43">&nbsp;
-					<a href="#"> Отмена</a>
-					<a class="div-new_add_delete orange_delete" href="#"><span class="delete">&nbsp;</span> Удалить объявление </a> 
-				</td>				
-			</tr>			
-		</table>
-
-	</div>
-</div>
-
-<div id="elektron" class="modal-window-wrapper"> <!-- Электронное обращение, -->
-	<div class="div-elektron">
-		<div class="btn-close"><span class="exit-big">&nbsp;</span></div>
-		<div class="div-elektron_title">
-			Электронное обращение
-			<div class="remark">
-				В соответствии с Законом Республики Беларусь «Об обращении граждан и юридических лиц» от 18 июля 2011 г. №300-3 обращение в организацию может быть осуществленно в письменной, электронной или устной форме.
-				<br>Обращения должны соответствовать требованиям, <a href="#">статей 12 и 25 Закона «Об обращениях граждан и юридических лиц»</a>.
-			</div>
-			<div class="remark-2">Все поля обязательны для заполнения</div>
-		</div>
-		<table width='100%'>
-			<tr>
-				<td width="150">Место обращения:</td>
-				<td width="365"><input type="text" class="gray-input"></td>
-				<td rowspan="5" class="right-row">
-					Вы также можете прикрепить дополнительные документы, более полно раскрывающие суть вашего обращения:<br>
-					<div style="position:relative">
-					<input   class="input-file" type="file">&nbsp;<span class="delete">&nbsp;</span><br>
-					</div>
-					<div class="remark">Допустимые форматы: doc, docx, rtf, pdf, txt, jpg, rar, zip. Размер не более 1МБ.</div> 
-				</td>				
-			</tr>
-			<tr>
-				<td>ФИО:</td>
-				<td><input type="text"></td>
-			</tr>
-			<tr>
-				<td>Адрес проживания:</td>
-				<td><input type="text"></td>
-			</tr>	
-			<tr class="table-red">
-				<td>Контактный телефон:</td>
-				<td><input type="text"></td>
-			</tr>
-			<tr>
-				<td>Ответить:</td>
-				<td style="line-height: 25px;" class="div-elektron_radio">
-					<input type="radio" name="browser" value="" class="radio-input radio-mail" checked><span class="radio-text">по эл. почте: <input type="text" class="e-mail"></span><br/>
-					<input type="radio" name="browser" value="" class="radio-input"><span class="radio-text">на почту по адресу проживания</span>
-				</td>
-			</tr>
-			<tr >
-				<td>Текст сообщения:</td>
-				<td>
-					<div class='div-elektron-textarea'>
-						<textarea>Мах кол-во символов меняется в script.js</textarea>
-						<div class="chars"></div>
-					</div>
-				</td>
-				<td class="td_info">
-					Заполните все обязательные поля<br><br>
-					<input type="button" value="Отправить обращение" class="orange-43"> &nbsp;<a href="#">Отмена</a>
-				</td>
-			</tr>			
-		</table>
-	</div>
-</div>
-
-
-<div id="feedback" class="modal-window-wrapper"> <!-- Обратная связь -->
-	<div class="div-feedback">
-		<div class="btn-close"><span class="exit-big">&nbsp;</span></div>
-		<div class="div-feedback_title">
-			Обратная связь
-		</div>
-		<table>
-			<tr>
-				<td width="388">
-					Тема:
-					<input type="text"><br>
-					<span class="remark">
-						Например    <a href="#">Проблема с сайтом</a>    <a href="#">Подключение другого адреса</a>
-					</span>
-				</td>
-				<td width="40">&nbsp;</td>
-				<td width="220">
-					Адрес страницы с проблемой<br>
-					<input type="text"><br>
-					<div class="remark">Допустимые форматы: doc, docx, rtf, pdf, txt, jpg, rar, zip. Размер не более 1МБ.</div> 
-				</td>
-				<td width="25">&nbsp;</td>
-			</tr>
-			<tr>
-				<td>
-					Текст сообщения:
-					<div class='div-feedback-textarea'>
-						<textarea>Мах кол-во символов меняется в script.js</textarea>
-						<div class="chars"></div>
-					</div>
-				</td>
-				<td>&nbsp;</td>
-				<td style="padding-top:18px;">
-					Для более наглядной иллюстрации  проблемы вы также можете прикрепить снимок экрана:<br>
-					<div class="pad-10"></div>
-					<div style="position:relative">
-						<input   class="input-file" type="file">
-						<span class="delete">&nbsp;</span>
-					</div>
-					<div class="pad-10"></div>
-					<span class="remark">Допустимые форматы: doc, docx, rtf, pdf, txt, jpg, rar, zip. Размер не более 1МБ. </span>
-				</td>
-				<td style="padding-top:110px">&nbsp;</td>
-			</tr>
-			<tr>
-				<td style="vertical-align:middle">
-					
-					<input class="orange-43" type="button" value="Отправить сообщение">
-					<a href="#">Отмена</a>
-				</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-			</tr>			
-		</table>
-	</div>
-</div>
-
-<div id="payment_history" class="modal-window-wrapper"> <!-- История платежей -->
-	<div class="div-payment_history">
-		<div class="btn-close"><span class="exit-big">&nbsp;</span></div>
-		<div class="div-payment_history_title">История ваших платежей</div>
-		<div class="div-payment_history_item">
-			23.03.2013 
-			<div class="div-payment_history_sum">145 900 руб.</div>
-		</div>
-		<div class="div-payment_history_item">
-			23.03.2013 
-			<div class="div-payment_history_sum">145 900 руб.</div>
-		</div>
-		<div class="div-payment_history_item">
-			23.03.2013 
-			<div class="div-payment_history_sum">145 900 руб.</div>
-		</div>
-		<div class="div-payment_history_item">
-			23.03.2013 
-			<div class="div-payment_history_sum">145 900 руб.</div>
-		</div>		
-	</div>	
-</div>
-
-<div id="diagram" class="modal-window-wrapper"> <!-- График потребления -->
-<!-- Демо управление графиками START -->
-<div id="id_demo" style="width:300px; padding:10px; background:rgba(200,200,60, 0.9); position: fixed; top:20px; left:20px; border:green 3px solid; z-index:100;">
-	Управление графиками.<br>
-	<input id="demo_1" type="text" value="30"><br>
-	<input id="demo_2" type="text" value="60"><br>
-	<input id="demo_3" type="text" value="52"><br>
-	<input id="demo_6" type="button" value="Применить"><br>
-	
-</div>
-<script type="text/javascript"> 
-	$('#demo_6').click(function(){
-		h1 = $('#demo_1').val();
-		h2 = $('#demo_2').val();	
-		h3 = $('#demo_3').val();
-		if (!((h1>250)||(h1<1)||(h2>250)||(h2<1)||(h3>250)||(h3<1)))
-		{
-		$('.div-diagram_1 .div-diagram_box-item').css('height',h1+'px');
-		$('.div-diagram_2 .div-diagram_box-item').css('height',h2+'px');
-		$('.div-diagram_3 .div-diagram_box-item').css('height',h3+'px');
-		$('#id_demo p').remove();
-		}
-		else
-		{
-			$('#id_demo').append('<p style="color:red; font-size:18px; font-weight:bold; text-align:center;"><br>уУПСс! !<br>Это только демо! !<br>Корректные параметры<br> от 1 до 250 !! <br><br> </p>')
-		
-		
-		};
-	});
-</script>
-<!-- Демо управление графиками  END -->
-	<div class="div-diagram">
-		<div class="btn-close"><span class="exit-big">&nbsp;</span></div>
-		<div class="div-diagram_title">График потребления</div>	
-		<div class="div-diagram_menu">
-			<ul class="ul-clear div-diagram_menu_left">
-				<li class="active">Холодная вода</li>
-				<li>Горячая вода</li>
-				<li>Электроэнергия </li>
-			</ul>
-			<div class="div-diagram_menu_text">за</div>
-			<ul class="ul-clear div-diagram_menu_right">
-				<li class="active">Квартал</li>
-				<li>Полугодие</li>
-				<li>Год</li>
-				<li>3 года</li>					
-			</ul>
-		</div>
-		<div class="div-diagram_menu">
-        <div class="div-diagram_menu_left">
-<select>
-<option>Холодная вода</option>
-<option>Горячая вода</option>
-<option>Электроэнергия</option> 
-</select>
-</div>
-			<div class="div-diagram_menu_text">за</div>
-			<ul class="ul-clear div-diagram_menu_right">
-				<li class="active">Квартал</li>
-				<li>Полугодие</li>
-				<li>Год</li>
-				<li>3 года</li>					
-			</ul>
-		</div>
-		<div class="div-diagram_wrapper">
-			<div class="div-diagram_info"><span class="info-black">&nbsp;</span></div>
-			<ul class="ul-clear">
-				<li  class="div-diagram_1">
-					<div class="div-diagram_box-item">
-						<div class="div-diagram_wrapper-info">
-							Квартал
-							<div class="div-diagram_label"></div>
-						</div>	
-					</div>
-					<div class="div-diagram_box-text">Март 2016</div>
-				</li>
-				<li  class="div-diagram_2">
-					<div class="div-diagram_box-item">
-						<div class="div-diagram_wrapper-info">
-							Квартал
-							<div class="div-diagram_label"></div>
-						</div>	
-					</div>
-					<div class="div-diagram_box-text">Март 2016</div>
-				</li>
-				<li  class="div-diagram_3">
-					<div class="div-diagram_box-item">
-						<div class="div-diagram_wrapper-info">
-							Квартал
-							<div class="div-diagram_label"></div>
-						</div>	
-					</div>
-					<div class="div-diagram_box-text">Октябрь 2016</div>
-				</li>				
-			</ul>
-		</div>
-	</div>	
-</div>
-
-<div id="registration" class="modal-window-wrapper"> <!-- Регистрация -->
-	<div class="div-registration">
-		<div class="btn-close"><span class="exit-big">&nbsp;</span></div>
-		<div class="div-registration_title">Регистрация</div>
-		<ul class="ul-clear">
-			<li><span class="div-registration_li active">Данные лицевого</span><span>&rarr;</span></li>
-			<li><span class="div-registration_li">Данные для входа</span><span>&rarr;</span></li>
-			<li><span class="div-registration_li">Готово!</span></li>
-		</ul>
-		<div class="div-registration_wrapper">
-			<div class="id-person">
-				Личный номер владельца жилья<br>
-				<input type="text">
-			</div>
-			<div class="score">
-				Номер лицевого счёта<br>
-				<input type="text">			
-			</div>			
-			<input type="button" value="Далее">
-		</div>
-		<div class="div-registration_footer">
-			Сожалеем, ваш дом не подключён к нашей системе.
-			Вы можете зарегистрироваться с другим лицевым
-			счётом или оставить заявку на подключение этого.
-			<div class="div-registration_footer_button">
-				<input type="text" value="E-mail для связи с вами">	
-				<input type="button" value="Оставить заявку"  class="orange-43">
-			</div>
-		</div>		
-	</div>	
-</div>
-
-<div id="registration2" class="modal-window-wrapper"> <!-- Регистрация 2 -->
-	<div class="div-registration">
-		<div class="btn-close"><span class="exit-big">&nbsp;</span></div>
-		<div class="div-registration_title">Регистрация</div>
-		<ul class="ul-clear">
-			<li><span class="div-registration_li">Данные лицевого</span><span>&rarr;</span></li>
-			<li><span class="div-registration_li active">Данные для входа</span><span>&rarr;</span></li>
-			<li><span class="div-registration_li">Готово!</span></li>
-		</ul>
-		<div class="div-registration_wrapper-2">
-			<div class="div-registration_e-mail">
-				<div class="orange_delete">E-mail</div>
-				<input type="text">
-			</div>
-			<div class="div-registration_password">
-				Пароль <span class="gray-12">(не менее 6 символов)</span><br>
-				<input type="text">
-			</div>
-			<div class="div-registration_password">
-				Повторите пароль<br>
-				<input type="text">
-			</div>
-			<div class="separator pad-20"></div>
-			<div class="div-registration_next">
-				<input type="button" value="Далее"> <span class="orange_delete">Tакой e-mail уже используется<span>
-			</div>
-		</div>
-	</div>	
-</div>
-
-<div id="registration3" class="modal-window-wrapper"> <!-- Регистрация 3 -->
-	<div class="div-registration">
-		<div class="btn-close"><span class="exit-big">&nbsp;</span></div>
-		<div class="div-registration_title">Регистрация</div>
-		<ul class="ul-clear">
-			<li><span class="div-registration_li">Данные лицевого</span><span>&rarr;</span></li>
-			<li><span class="div-registration_li">Данные для входа</span><span>&rarr;</span></li>
-			<li><span class="div-registration_li active">Готово!</span></li>
-		</ul>
-		<div class="div-registration_wrapper-2">
-			Подтвердите
-			<div class="div-registration_inner">
-				Я,
-				<input type="text" value=" Ваше ФИО"><br>
-				согласен <a href="#">с условиями пользовательской оферты</a>
-			</div>
-			<div style="text-align:center">
-			<input class="orange-43" type="button" value="Подтвердить и зарегистрироваться">
-			</div>
-		</div>
-	</div>	
-</div>
-
-<div id="registration4" class="modal-window-wrapper"> <!-- Регистрация 4 -->
-	<div class="div-registration">
-		<div class="btn-close"><span class="exit-big">&nbsp;</span></div>
-		<div class="div-registration_title">Спасибо!</div>
-
-		<div class="div-registration_wrapper-2">
-			Для завершения регистрации пройдите по ссылке, которая выслана на ваш e-mail
-		</div>
-		
-	</div>	
-</div>
-
-<div id="registration5" class="modal-window-wrapper"> <!-- Регистрация 5 -->
-	<div class="div-registration">
-		<div class="btn-close"><span class="exit-big">&nbsp;</span></div>
-		<div class="div-registration_wrapper-2">
-			<div class="div-registration_title">Поздравляем!</div>
-			Вы зарегистрировались на нашем сайте<br>
-			<div class="pad-30"></div>
-			<a href="#">Изменить свои личные данные</a><br>
-			<a href="#">Настроить уведомления</a><br><br>
-			<input type="button" value="Начать работу"  class="orange-43">
-			
-		</div>		
-	</div>	
-</div>
-
-<div id="state2" class="modal-window-wrapper"> <!-- Управление лицевыми, State2 -->
-	<div class="div-state">
-		<div class="btn-close"><span class="exit-big">&nbsp;</span></div>
-		<div class="div-state_title">По умолчинию <span>Удалить</span></div>
-		<table>
-			<tr>
-				<td width="27"><input class="radio-input" type="radio" value="" name="radio-state"></td>
-				<td width="312"><span class="radio-text">Минск, просп. Рокосовского, д. 123, кв. 34</span></td>
-				<td width="20"><span class="delete">&nbsp;</span></td>
-			</tr>
-			<tr>
-				<td><input class="radio-input" type="radio" value="" name="radio-state"></td>
-				<td><span class="radio-text">Минск, ул. Рафиева, д. 45, кор. 2, кв. 175</span></td>
-				<td><span class="delete">&nbsp;</span></td>
-			</tr>
-			<tr>
-				<td><input class="radio-input" type="radio" value="" name="radio-state"></td>
-				<td><span class="radio-text">Бобруйск, ул. Ленина, д. 12, кв. 34</span></td>
-				<td><span class="delete">&nbsp;</span></td>
-			</tr>			
-		</table>
-		<div class="div-state_title_footer">
-			<a href="#"><span class="plus-small">&nbsp;</span>Добавить лицевой счёт</a>
-			<input type="button" value="Сохранить изменения" class="gray-35">
-			<div class="separator pad-10"></div>
-			<div class="cancel"><a href="#">Отменить</a></div>
-			<div class="separator"></div>
-		</div>
-		
-	</div>	
-</div>
-
-<div id="state1" class="modal-window-wrapper"> <!-- Управление лицевыми, State1 -->
-	<div class="div-state">
-		<div class="btn-close"><span class="exit-big">&nbsp;</span></div>
-		<div class="div-state_title"></div>
-		<table>
-			<tr>
-				<td width="27"><span class="arrow-state">&nbsp;</span></td>
-				<td width="312"><span class="radio-text">Минск, просп. Рокосовского, д. 123, кв. 34</span></td>
-				<td width="20">&nbsp;</td>
-			</tr>
-			<tr class="active">
-				<td><span class="arrow-state">&nbsp;</span></td>
-				<td><span class="radio-text">Минск, ул. Рафиева, д. 45, кор. 2, кв. 175</span></td>
-				<td>&nbsp;</td>
-			</tr>
-			<tr>
-				<td><span class="arrow-state">&nbsp;</span></td>
-				<td><span class="radio-text">Бобруйск, ул. Ленина, д. 12, кв. 34</span></td>
-				<td>&nbsp;</td>
-			</tr>			
-		</table>
-		<div class="div-state_title_footer">
-			
-			<div  class="gray-35"><span class="edit-blue">&nbsp;</span> Редактировать список</div>
-
-			<div class="separator"></div>
-		</div>
-		
-	</div>	
-</div>
-
-<div id="password1" class="modal-window-wrapper"> <!-- 14 Пароль 1 -->
-	<div class="div-password1">
-		<div class="btn-close"><span class="exit-big">&nbsp;</span></div>
-		<div class="div-password1_title">Новый пароль</div>
-		Придумайте и введите новый пароль<br>
-		<input type="text"><br><br>
-		Повторите пароль<br>
-		<input type="text"><br><br>
-		<input type="button" value="Готово" class="orange-43">
-	</div>	
-</div>
-
-<div id="password2" class="modal-window-wrapper"> <!-- 18 Пароль 2 -->
-	<div class="div-password2">
-		<div class="btn-close"><span class="exit-big">&nbsp;</span></div>
-		<div class="div-password2_title">Забыли пароль?</div>
-		Введите свой e-mail<br>
-		<input type="text"><div class="pad-20"></div>
-		<input type="button" value="Выслать инструкции по восстановлению" class="orange-43">		
-	</div>	
-</div>
-
-<div id="services" class="modal-window-wrapper"> <!-- 18 Пароль 2 -->
-	<div class="div-services">
-		<div class="btn-close"><span class="exit-big">&nbsp;</span></div>
-		<div class="div-services_item">
-			<a href="#" class="div-services_logo"><img src="demo/services_logo1.png"></a>
-			Высокоскоростной интернет по телефонной линии. Тарифы:<br>
-			Домосед — 115 000 рублей в месяц;<br>
-			Домосед плюс — 200 000 рублей в месяц;<br>
-			Домосед XXL — 250 000 рублей в месяц;<br>
-			<a href="#" class="div-services_link">Связаться по поводу подключения</a>
-		</div>
-		<div class="div-services_item">
-			<a href="#" class="div-services_logo"><img src="demo/services_logo2.png"></a>
-			Высокоскоростной интернет по телефонной линии. Тарифы:<br>
-			Домосед — 115 000 рублей в месяц;<br>
-			Домосед плюс — 200 000 рублей в месяц;<br>
-			Домосед XXL — 250 000 рублей в месяц;<br>
-			<a href="#" class="div-services_link">Связаться по поводу подключения</a>
-		</div>
-	</div>	
-</div>
-
-
-<!-- управление модальными, только в демо целях -->
-<div style="width:200px; padding:10px; background:rgba(200,200,0, 0.5); position: fixed; top:10px; left:10px; border:green 2px solid; z-index:20;">
-	Управление модальными окнами.
-	<input id="test_state" type="button" value="1 Управление лицевыми"><br>	
-	<input id="test_6" type="button" value="3 График потребления"><br>	
-	<input id="test_4" type="button" value="4 Электронное обращение"><br>
-	<input id="test_5" type="button" value="5 История платежей"><br>	
-	<input id="test_2" type="button" value="6 Ваши льготы"><br>
-	<input id="test_1" type="button" value="7 Регистрация"><br>	
-	<input id="test_1_2" type="button" value="7 Регистрация 2"><br>	
-	<input id="test_1_3" type="button" value="7 Регистрация 3"><br>	
-	<input id="test_1_4" type="button" value="7 Регистрация 4"><br>		
-	<input id="test_1_5" type="button" value="7 Регистрация 5"><br>	
-	<input id="test_8" type="button" value="8 Обратная связь"><br> 
-	<input id="test_3" type="button" value="9 Добавление-редактир..."><br>
-	<input id="test_3_2" type="button" value="3.3 / 9 Добавление-ред..."><br>
-	<input id="test_services" type="button" value="11а Услуги... попап"><br>
-	<input id="test_password1" type="button" value="14 Пароль 1"><br>
-	<input id="test_password2" type="button" value="18 Пароль 2"><br>
-	Услуги организаций
-	<input id="services_search" type="button" value="Типо результат поиска"><br>
-</div>
-
-
-<!-- модальные END -->	
-
-
 	</div><!-- .middle-->
 
-</div><!-- .wrapper -->
+
 
 <div class="footer">
 	<div class="footer-inner">
@@ -961,6 +207,61 @@
 
 	</div>
 </div><!-- .footer -->
+
+
+</div><!-- .wrapper -->
+
+{% include 'modal-windows.html.twig' %}
+
+    <script type="text/javascript">
+		$(document).ready(function() {
+			$('#forg_pass').click( function(event){
+				event.preventDefault(); // выключaем стaндaртную рoль элементa
+				$('#password2') 
+				 			.css('display', 'block')
+				 			.animate({opacity: 1, top: '0%'}, 200);
+			});
+
+			$('#login').submit(function(){
+				$.ajax({
+					type: "POST",
+					url: "{{ path('_jkh_login') }}",
+					data: $(this).serialize(),
+					success: function(data){
+					     alert("Сообщение: " + data);
+					}
+				});
+				return false;
+			});
+
+			$('#logout').click(function(event){
+				event.preventDefault();
+				$.ajax({
+					type: "POST",
+					url: "{{ path('_jkh_logout') }}",
+					success: function(data){
+					     alert("Прибыли данные: " + data);
+					}
+				});
+				return false;
+			});
+
+			$("#recovery_pass").submit(function(){
+				alert("Отправка ajax");
+				$.ajax({
+					type: "POST",
+					url: "{{ path('_jkh_recoverypass') }}",
+					data: $(this).serialize(),
+					success: function(data){
+					    alert("Прибыли данные: " + data);
+					}
+				});
+				return false;
+			});
+		});
+    </script>
+
+
 
 </body>
 </html>
