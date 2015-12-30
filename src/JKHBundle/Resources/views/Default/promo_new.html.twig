@@ -3,16 +3,17 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>promo.html</title>
+<link rel="shortcut icon" href="{{ asset('bundles/jkh/img/logo-promo.png') }}" type="image/x-icon">
 <link href='http://fonts.googleapis.com/css?family=PT+Sans:700,400&subset=latin,cyrillic-ext' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:700&subset=latin,cyrillic-ext' rel='stylesheet' type='text/css'>
-<link rel="stylesheet" href="css/style.css" type="text/css" media="screen, projection" />
-<script type="text/javascript" src="js/jquery.min.js"></script>
-<!--[if IE ]><link rel="stylesheet" href="css/ie.css" type="text/css" media="screen, projection" /><![endif]-->
-<script type="text/javascript" src="js/jquery.mousewheel.min.js"></script>
-<script type="text/javascript" src="js/jcarousellite.js"></script>
-<script type="text/javascript" src="js/script.js"></script>
-<script src="js/jquery.scrollTo-1.4.3.1.min.js"></script>
-<script type="text/javascript" src="js/promo.js"></script>
+<link rel="stylesheet" href="{{ asset('bundles/jkh/css/style.css') }}" type="text/css" media="screen, projection" />
+<script type="text/javascript" src="{{ asset('bundles/jkh/js/jquery.min.js') }}"></script>
+<!--[if IE ]><link rel="stylesheet" href="{{ asset('bundles/jkh/css/ie.css') }}" type="text/css" media="screen, projection" /><![endif]-->
+<script type="text/javascript" src="{{ asset('bundles/jkh/js/jquery.mousewheel.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/jkh/js/jcarousellite.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/jkh/js/script.js') }}"></script>
+<script src="{{ asset('bundles/jkh/js/jquery.scrollTo-1.4.3.1.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/jkh/js/promo.js') }}"></script>
 </head>
 
 <body class="promo">
@@ -21,7 +22,7 @@
     <div class="bubble"> <b>bootook1287</b><br>
       присоединился к сервису<br>
       <i>ул. Ольшевского, 23</i> </div>
-    <div class="logo"><a href="#" ><img src="img/logo-promo.png" alt="Лого" title="Логотип Компании"></a></div>
+    <div class="logo"><a href="#" ><img src="{{ asset('bundles/jkh/img/logo-promo.png') }}" alt="Лого" title="Логотип Компании"></a></div>
     <!--.logo-->
     <div class="promo_header_menu_wrapper">
       <ul class="promo_header_menu ul-clear">
@@ -30,42 +31,44 @@
         <li><a href="#">УПРАВЛЯЙ!</a></li>
       </ul>
     </div>
-    <div class="separator"></div>
-    <div class="promo_header_user-info"> 2589
-      <div class="promo_header_user-info-text"> пользователей уже успешно<br>
-        пользуются сервисом </div>
-    </div>
-    <input type="text" class="promo_header_email" value="Имя ящика">
-    <input type="text" class="promo_header_password" value="Пароль">
-    <div class="promo_header_text-info"><a href="#">Забыли пароль?</a></div>
-    <input type="button" class="promo_header_button" value="Войти">
+
+
+    {% if is_auth == true %}
+      {% include 'header-personal.html.twig' %}
+    {% endif %}
+
+    {% if is_auth == false %}
+        {% include 'header-general.html.twig' %}
+    {% endif %}
+
+
     <div class="promo_header_menu_wrapper slideblock"> <a href="#"></a>
       <ul class="promo_header_menu-icon ul-clear">
-        <li> <img src="top_slider/1.png" alt=""><br>
+        <li> <img src="{{ asset('bundles/jkh/top_slider/1.png') }}" alt=""><br>
           <span>ВНЕСЕНИЯ ПОКАЗАНИЙ</span>
           <div>Для вашего удобства система предоставляет услугу по внесению показаний индивидуальных приборов.</div>
         </li>
-        <li> <img src="top_slider/2.png" alt=""><br>
+        <li> <img src="{{ asset('bundles/jkh/top_slider/2.png') }}" alt=""><br>
           <span>МОНИТОРИНГ РАСХОДОВ</span>
           <div>Вы можете контролировать свой бюджет, оперативно отслеживая суммы начислений за услуги ЖКХ.</div>
         </li>
-        <li> <img src="top_slider/3_copy.png" alt=""><br>
+        <li> <img src="{{ asset('bundles/jkh/top_slider/3_copy.png') }}" alt=""><br>
           <span>ТЕМАТИЧЕСКИЕ СПРАВОЧНИКИ</span>
           <div>Обширная база справочников на жилищно-коммунальные услуги позволит быстро найти необходимую информацию и сэкономить нервные клетки.</div>
         </li>
-        <li> <img src="top_slider/4_copy.png" alt=""><br>
+        <li> <img src="{{ asset('bundles/jkh/top_slider/4_copy.png') }}" alt=""><br>
           <span>НОВАЯ ИНФА</span>
           <div>Изменяетя из ШТЛМ!!! Вы можете контролировать свой бюджет, оперативно отслеживая суммы начислений за услуги ЖКХ.</div>
         </li>
-        <li> <img src="top_slider/5.png" alt=""><br>
+        <li> <img src="{{ asset('bundles/jkh/top_slider/5.png') }}" alt=""><br>
           <span>ИНФОРМАЦИЯ О ВАШЕМ ДОМЕ</span>
           <div>Обширная база справочников на жилищно-коммунальные услуги позволит быстро найти необходимую информацию и сэкономить нервные клетки.</div>
         </li>
-        <li> <img src="top_slider/5_copy.png" alt=""><br>
+        <li> <img src="{{ asset('bundles/jkh/top_slider/5_copy.png') }}" alt=""><br>
           <span>ИНФОРМАЦИЯ О ВАШЕМ ДОМЕ</span>
           <div>Обширная база справочников на жилищно-коммунальные услуги позволит быстро найти необходимую информацию и сэкономить нервные клетки.</div>
         </li>
-        <li> <img src="top_slider/5_copy.png" alt=""><br>
+        <li> <img src="{{ asset('bundles/jkh/top_slider/5_copy.png') }}" alt=""><br>
           <span>ИНФОРМАЦИЯ О ВАШЕМ ДОМЕ</span>
           <div>Обширная база справочников на жилищно-коммунальные услуги позволит быстро найти необходимую информацию и сэкономить нервные клетки.</div>
         </li>
@@ -89,37 +92,37 @@
               <button class="next">&nbsp;<span class="b_next hide"></span></button>
             </div>
             <ul class="ul-clear">
-              <li> <img src="img/slider-main_01.png" alt=""><br>
+              <li> <img src="{{ asset('bundles/jkh/img/slider-main_01.png') }}" alt=""><br>
                 <div class="slider-main_title">1 Доска новостей и объявлений</div>
                 <div class="slider-main_text">
                 Мы всегда готовы напомнить вам о новостях, о начислении новых счетов, о необходимости оплаты и ввода показаний по эл/почте.
                 <div>
               </li>
-              <li> <img src="img/slider-main_02.png" alt=""><br>
+              <li> <img src="{{ asset('bundles/jkh/img/slider-main_02.png') }}" alt=""><br>
                 <div class="slider-main_title">2 Доска новостей и объявлений</div>
                 <div class="slider-main_text">Мы всегда готовы напомнить вам о новостях, о начислении новых счетов, о необходимости оплаты и ввода показаний по эл/почте.</div>
               </li>
-              <li> <img src="img/slider-main_03.png" alt=""><br>
+              <li> <img src="{{ asset('bundles/jkh/img/slider-main_03.png') }}" alt=""><br>
                 <div class="slider-main_title">3 Доска новостей и объявлений</div>
                 <div class="slider-main_text">Мы всегда готовы напомнить вам о новостях, о начислении новых счетов, о необходимости оплаты и ввода показаний по эл/почте.</div>
               </li>
-              <li> <img src="img/slider-main_04.png" alt=""><br>
+              <li> <img src="{{ asset('bundles/jkh/img/slider-main_04.png') }}" alt=""><br>
                 <div class="slider-main_title">4 Доска новостей и объявлений</div>
                 <div class="slider-main_text">Мы всегда готовы напомнить вам о новостях, о начислении новых счетов, о необходимости оплаты и ввода показаний по эл/почте.</div>
               </li>
-              <li> <img src="img/slider-main_05.png" alt=""><br>
+              <li> <img src="{{ asset('bundles/jkh/img/slider-main_05.png') }}" alt=""><br>
                 <div class="slider-main_title">5 Доска новостей и объявлений</div>
                 <div class="slider-main_text">Мы всегда готовы напомнить вам о новостях, о начислении новых счетов, о необходимости оплаты и ввода показаний по эл/почте.</div>
               </li>
-              <li> <img src="img/slider-main_06.png" alt=""><br>
+              <li> <img src="{{ asset('bundles/jkh/img/slider-main_06.png') }}" alt=""><br>
                 <div class="slider-main_title">6 Доска новостей и объявлений</div>
                 <div class="slider-main_text">Мы всегда готовы напомнить вам о новостях, о начислении новых счетов, о необходимости оплаты и ввода показаний по эл/почте.</div>
               </li>
-              <li> <img src="img/slider-main_07.png" alt=""><br>
+              <li> <img src="{{ asset('bundles/jkh/img/slider-main_07.png') }}" alt=""><br>
                 <div class="slider-main_title">7 Доска новостей и объявлений</div>
                 <div class="slider-main_text">Мы всегда готовы напомнить вам о новостях, о начислении новых счетов, о необходимости оплаты и ввода показаний по эл/почте.</div>
               </li>
-              <li> <img src="img/slider-main_07.png" alt=""><br>
+              <li> <img src="{{ asset('bundles/jkh/img/slider-main_07.png') }}" alt=""><br>
                 <div class="slider-main_title">8 Доска новостей и объявлений</div>
                 <div class="slider-main_text">Мы всегда готовы напомнить вам о новостях, о начислении новых счетов, о необходимости оплаты и ввода показаний по эл/почте.</div>
               </li>
@@ -133,15 +136,15 @@
       </div>
       <div class="promo_header_menu-control_wrapper">
         <ul class="promo_header_menu-control ul-clear">
-          <li> <img src="img/control_1.jpg" alt=""><br>
+          <li> <img src="{{ asset('bundles/jkh/img/control_1.jpg') }}" alt=""><br>
             Размещение своих объявлений
             <div>Хотите оставить объявление для ваших соседей по дому? Воспользуйтесь простым сервисом.</div>
           </li>
-          <li> <img src="img/control_2.jpg" alt=""><br>
+          <li> <img src="{{ asset('bundles/jkh/img/control_2.jpg') }}" alt=""><br>
             Внесение показаний счетчиков
             <div>Вносите показания счетчиков в удобное для вас время.</div>
           </li>
-          <li> <img src="img/control_3.jpg" alt=""><br>
+          <li> <img src="{{ asset('bundles/jkh/img/control_3.jpg') }}" alt=""><br>
             Заказ дополнительных услуг
             <div>Закажите себе новый пакет услуг интернет-провайдера, или 40 каналов «Космос ТВ» не выходя из доома.</div>
           </li>
@@ -190,10 +193,10 @@
             <span>124 ПОЛЬЗОВАТЕЛЯ</span> </div>
           <div class="search_found-box_text">Минск, ул. Козыревская, 29/1</div>
           <ul class="search_found-box_img">
-            <li><img src="img/pic_1.jpg" height="73" width="76" alt=""></li>
-            <li><img src="img/pic_2.jpg" height="73" width="76" alt=""></li>
-            <li><img src="img/pic_1.jpg" height="73" width="76" alt=""></li>
-            <li><img src="img/pic_2.jpg" height="73" width="76" alt=""></li>
+            <li><img src="{{ asset('bundles/jkh/img/pic_1.jpg') }}" height="73" width="76" alt=""></li>
+            <li><img src="{{ asset('bundles/jkh/img/pic_2.jpg') }}" height="73" width="76" alt=""></li>
+            <li><img src="{{ asset('bundles/jkh/img/pic_1.jpg') }}" height="73" width="76" alt=""></li>
+            <li><img src="{{ asset('bundles/jkh/img/pic_2.jpg') }}" height="73" width="76" alt=""></li>
           </ul>
           <div class="search_found-box_input"> <a href="#"  class="search_error-box_link">Присоединяйтесь</a> к вашим соседям,<br>
             забудьте о квитанциях и утомительных очередях,<br>
@@ -209,15 +212,15 @@
       </div>
       <div class="promo_menu-bottom_wrapper slideblock" id="link5"><a href="#" class=""></a>
         <ul class="promo_menu-bottom ul-clear">
-          <li> <img src="img/li-bottom_1.png" alt=""><br>
+          <li> <img src="{{ asset('bundles/jkh/img/li-bottom_1.png') }}" alt=""><br>
             Мгновенные уведомления
             <div>Мы всегда готовы напомнить вам о новостях, начислении новых счетов, и необходимости оплаты и ввода показаний.</div>
           </li>
-          <li> <img src="img/li-bottom_2.png" alt=""><br>
+          <li> <img src="{{ asset('bundles/jkh/img/li-bottom_2.png') }}" alt=""><br>
             Управление счетами
             <div>Вы можете зарегистрировать несколько лицевых счетов и вводить потребление как по собственной квартире, так и по квартире родителей.</div>
           </li>
-          <li> <img src="img/li-bottom_3.png" alt=""><br>
+          <li> <img src="{{ asset('bundles/jkh/img/li-bottom_3.png') }}" alt=""><br>
             Всегда под рукой
             <div>Ввести и отправить показания можно не отходя от счетчиков, а вспомнить сумму оплаты и номер лицевого - прямо у кассы.</div>
           </li>
@@ -230,40 +233,79 @@
   </div>
   <!-- .middle--> 
   
+{% include 'footer.html.twig' %}
+  
 </div>
 <!-- .wrapper -->
-<div class="footer">
-  <div class="footer-inner">
-    <div class="pagination">
-      <ul class="ul-clear">
-        <li class="first"><a href='#' class="nav-button" id="first">&nbsp;</a></li>
-        <li class="page"><a href='#link1' class="nav-button" id="p1">1</a></li>
-        <li class="page activ"><a href='#link2' class="nav-button" id="p2">2</a></li>
-        <li class="page"><a href='#link3' class="nav-button" id="p3">3</a></li>
-        <li class="page"><a href='#link4' class="nav-button" id="p4">4</a></li>
-        <li class="page"><a href='#link5' class="nav-button" id="p5">5</a></li>
-        <li class="last"><a href='#' class="nav-button" id="last">&nbsp;</a></li>
-      </ul>
-    </div>
-    <div class="copyrights">&copy; 2013, ЖКХ-online</div>
-    <div class="footer-like"> <a href="#" class="twitter">&nbsp;</a>&nbsp; <a href="#" class="facebook">&nbsp;</a>&nbsp; <a href="#" class="vk">&nbsp;</a>&nbsp; </div>
-    <a href="#" class="btn-start">Начать использование</a> <a href="#" class="btn-demo">Или опробовать<br>
-    систему<br>
-    в демо-режиме</a>
-    <div class="like">
-      <div class="b-social">
-        <div class="soc tw"><img src="img/soc-tw2.png"></div>
-        <div class="soc vk"><img src="img/soc-vk2.png"></div>
-        <div class="soc fb"><img src="img/soc-fb2.png"></div>
-        <div class="soc ok"><img src="img/soc-ok2.png"></div>
-      </div>
-      <!--b-social--> 
-    </div>
-    <div class="footer-like"> <a href="#" class="twitter">&nbsp;</a>&nbsp; <a href="#" class="facebook">&nbsp;</a>&nbsp; <a href="#" class="vk">&nbsp;</a>&nbsp; </div>
-    <div class="support"><a href="#">Разработка сайта <img src="css/pict/link.png" alt=''/></a></div>
-  </div>
-</div>
-<!-- .footer -->
+
+
+
+{% include 'modal-windows.html.twig' %}
+
+
+    <script type="text/javascript">
+    $(document).ready(function() {
+
+      //REGISTRATION NEW USER START
+      $('.btn-start').click( function(event){
+        event.preventDefault(); // выключaем стaндaртную рoль элементa
+        $('#registration') 
+              .css('display', 'block')
+              .animate({opacity: 1, top: '0%'}, 200);
+      });
+
+
+      $('#registr1').submit(function(){
+        $('#registration') 
+              .css('display', 'none')
+              .animate({opacity: 0, top: '0%'}, 200);
+        $('#registration2') 
+              .css('display', 'block')
+              .animate({opacity: 1, top: '0%'}, 200);
+        return false;
+      });
+
+      $('#registr2').submit(function(){
+        $('#registration2') 
+              .css('display', 'none')
+              .animate({opacity: 0, top: '0%'}, 200);
+        
+        $('#registration3') 
+              .css('display', 'block')
+              .animate({opacity: 1, top: '0%'}, 200);
+        return false;
+      });
+
+      $('#registr3').submit(function(){
+        $('#registration3') 
+              .css('display', 'none')
+              .animate({opacity: 0, top: '0%'}, 200);
+        $('#registration4') 
+              .css('display', 'block')
+              .animate({opacity: 1, top: '0%'}, 200);
+      
+        $('#registr3 #indent_num_id').val( $('#registr1 #indent_num_id').val() );
+        $('#registr3 #litz_schet_id').val( $('#registr1 #litz_schet_id').val() );
+        $('#registr3 #email_id').val( $('#registr2 #email_id').val() );
+        $('#registr3 #pass_id').val( $('#registr2 #pass_id').val() );
+
+
+        $.ajax({
+          type: "POST",
+          url: "{{ path('_jkh_registr') }}",
+          data: $(this).serialize(),
+          success: function(data){
+               alert("Сообщение: " + data);
+          }
+        });
+        return false;
+      });
+
+
+
+
+    });
+    </script>
 
 </body>
 </html>

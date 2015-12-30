@@ -56,3 +56,40 @@
     </div> -->
   </div>
   <!-- .header-->
+
+<script type="text/javascript">
+    $(document).ready(function() {
+      $('#login').submit(function(){
+        $.ajax({
+          type: "POST",
+          url: "{{ path('_jkh_login') }}",
+          data: $(this).serialize(),
+          success: function(data){
+               alert("Сообщение: " + data);
+          }
+        });
+        return false;
+      });
+
+      $('#forg_pass').click( function(event){
+        event.preventDefault(); // выключaем стaндaртную рoль элементa
+        $('#password2') 
+              .css('display', 'block')
+              .animate({opacity: 1, top: '0%'}, 200);
+      });
+
+      $("#recovery_pass").submit(function(){
+        alert("Отправка ajax");
+        $.ajax({
+          type: "POST",
+          url: "{{ path('_jkh_recoverypass') }}",
+          data: $(this).serialize(),
+          success: function(data){
+              alert("Прибыли данные: " + data);
+          }
+        });
+        return false;
+      });
+
+    });
+</script>

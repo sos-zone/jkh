@@ -523,15 +523,17 @@
       <li><span class="div-registration_li">Готово!</span></li>
     </ul>
     <div class="div-registration_wrapper">
-      <div class="id-person">
-        Личный номер владельца жилья<br>
-        <input type="text">
-      </div>
-      <div class="score">
-        Номер лицевого счёта<br>
-        <input type="text">     
-      </div>      
-      <input type="button" value="Далее">
+      <form id="registr1">
+          <div class="id-person">
+            Личный номер владельца жилья<br>
+            <input type="text" id="indent_num_id" name="indent_num" required>
+          </div>
+          <div class="score">
+            Номер лицевого счёта<br>
+            <input type="text" id="litz_schet_id" name="litz_schet" required>     
+          </div>      
+          <input type="submit" value="Далее">
+      </form>
     </div>
     <div class="div-registration_footer">
       Сожалеем, ваш дом не подключён к нашей системе.
@@ -555,22 +557,24 @@
       <li><span class="div-registration_li">Готово!</span></li>
     </ul>
     <div class="div-registration_wrapper-2">
-      <div class="div-registration_e-mail">
-        <div class="orange_delete">E-mail</div>
-        <input type="text">
-      </div>
-      <div class="div-registration_password">
-        Пароль <span class="gray-12">(не менее 6 символов)</span><br>
-        <input type="text">
-      </div>
-      <div class="div-registration_password">
-        Повторите пароль<br>
-        <input type="text">
-      </div>
-      <div class="separator pad-20"></div>
-      <div class="div-registration_next">
-        <input type="button" value="Далее"> <span class="orange_delete">Tакой e-mail уже используется<span>
-      </div>
+      <form id="registr2">
+        <div class="div-registration_e-mail">
+          <div class="orange_delete">E-mail</div>
+          <input type="text" id="email_id" name="email" required>
+        </div>
+        <div class="div-registration_password">
+          Пароль <span class="gray-12">(не менее 6 символов)</span><br>
+          <input type="password" id="pass" name="pass" required>
+        </div>
+        <div class="div-registration_password">
+          Повторите пароль<br>
+          <input type="password" id="re-pass" name="re-pass" required>
+        </div>
+        <div class="separator pad-20"></div>
+        <div class="div-registration_next">
+          <input type="submit" value="Далее"> <span class="orange_delete">Tакой e-mail уже используется<span>
+        </div>
+      </form>
     </div>
   </div>  
 </div>
@@ -585,15 +589,21 @@
       <li><span class="div-registration_li active">Готово!</span></li>
     </ul>
     <div class="div-registration_wrapper-2">
-      Подтвердите
-      <div class="div-registration_inner">
-        Я,
-        <input type="text" value=" Ваше ФИО"><br>
-        согласен <a href="#">с условиями пользовательской оферты</a>
-      </div>
-      <div style="text-align:center">
-      <input class="orange-43" type="button" value="Подтвердить и зарегистрироваться">
-      </div>
+      <form id="registr3">
+        <input type="hidden" id="indent_num_id" name="indent_num" value="">
+        <input type="hidden" id="litz_schet_id" name="litz_schet" value="">
+        <input type="hidden" id="email_id" name="email" value="">
+        <input type="hidden" id="pass_id" name="pass" value="">
+        Подтвердите
+        <div class="div-registration_inner">
+          Я,
+          <input type="text" placeholder=" Ваше ФИО" name="fio" required><br>
+          согласен <a href="#">с условиями пользовательской оферты</a>
+        </div>
+        <div style="text-align:center">
+        <input class="orange-43" type="submit" value="Подтвердить и зарегистрироваться">
+        </div>
+      </form>
     </div>
   </div>  
 </div>

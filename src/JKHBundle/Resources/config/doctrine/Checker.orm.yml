@@ -1,0 +1,18 @@
+JKHBundle\Entity\Checker:
+    type: entity
+    table: null
+    repositoryClass: JKHBundle\Repository\CheckerRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        email:
+            type: string
+            length: '32'
+        checkmailcode:
+            type: string
+            length: '64'
+    lifecycleCallbacks: {  }

@@ -5,3 +5,20 @@
 		<div class="header_user_exit"><a title="Выход" href="#" id="logout">Выход <span class="exit">&nbsp;</span></a></div>
 		<div class="header_user_personal-account"><a title="Все лицевые счета" href="#"><span class="personal-account">&nbsp;</span>Все лицевые счета</a></div>
 	</div><!-- .header-->
+
+
+<script type="text/javascript">
+    $(document).ready(function() {
+			$('#logout').click(function(event){
+				event.preventDefault();
+				$.ajax({
+					type: "POST",
+					url: "{{ path('_jkh_logout') }}",
+					success: function(data){
+					     alert("Прибыли данные: " + data);
+					}
+				});
+				return false;
+			});
+    });
+</script>

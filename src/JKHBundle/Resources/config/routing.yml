@@ -2,29 +2,21 @@ jkh_homepage:
     path:     /
     defaults: { _controller: JKHBundle:Default:index }
 
-_jkh_auth-step1:
-    path:     /auth
-    defaults: { _controller: JKHBundle:Default:auth }
+jkh_advert:
+    path:     /advert
+    defaults: { _controller: JKHBundle:Default:advert }
 
-_jkh_auth-step2:
-    path:     /auth2
-    defaults: { _controller: JKHBundle:Default:auth2 }
+_jkh_orgbase:
+    path:     /orgbase
+    defaults: { _controller: JKHBundle:Default:orgbase }
 
-_jkh_auth-step3:
-    path:     /auth3
-    defaults: { _controller: JKHBundle:Default:auth3 }
+_jkh_registr:
+    path:     /registr
+    defaults: { _controller: JKHBundle:Default:registr }
 
-_jkh_auth-step4:
-    path:     /auth4
-    defaults: { _controller: JKHBundle:Default:auth4 }
-
-_jkh_auth-step5:
-    path:     /auth5
-    defaults: { _controller: JKHBundle:Default:auth5 }
-
-_jkh_auth-final:
-    path:     /authfin
-    defaults: { _controller: JKHBundle:Default:authfin }
+_jkh_checkemail:
+    path:     /checkemail/{checkmailcode}
+    defaults: { _controller: JKHBundle:Default:checkemail }
 
 _jkh_recoverypass:
     path:     /recoverypass

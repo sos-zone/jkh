@@ -3,6 +3,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>_ ЖКХ _</title>
+	<link rel="shortcut icon" href="{{ asset('bundles/jkh/img/logo-promo.png') }}" type="image/x-icon">
 	<link href='http://fonts.googleapis.com/css?family=PT+Sans:700,400&subset=latin,cyrillic-ext' rel='stylesheet' type='text/css'>
 	<!--[if IE ]><link rel="stylesheet" href="css/ie.css" type="text/css" media="screen, projection" /><![endif]-->
 	<link rel="stylesheet" href="{{ asset('bundles/jkh/css/style.css') }}" type="text/css" media="screen, projection" />
@@ -42,8 +43,8 @@
 				<li><a href="#" title="Показания счётчиков">Показания счётчиков</a></li>
 				<li><a href="#" title="Начисления">Начисления <span>249 500</span></a></li>
 				<li><a href="#" title="Где оплатить">Где оплатить</a></li>
-				<li><a href="#" class="e-tweet" data-org-id="1"><span class="e-mail">&nbsp;</span>&nbsp;Н1</a></li>
-				<li><a href="#" class="e-tweet" data-org-id="2"><span class="e-mail">&nbsp;</span>&nbsp;Н2</a></li>
+				<!-- <li><a href="#" class="e-tweet" data-org-id="1"><span class="e-mail">&nbsp;</span>&nbsp;Н1</a></li>
+				<li><a href="#" class="e-tweet" data-org-id="2"><span class="e-mail">&nbsp;</span>&nbsp;Н2</a></li> -->
 				<li><a href="#" title="Куда обращаться">Куда обращаться</a></li>
 				<li class="active"><a href="#" title="Доп. услуги">Доп. услуги</a></li>                
 			</ul>
@@ -176,39 +177,7 @@
 	</div><!-- .middle-->
 
 
-
-<div class="footer">
-	<div class="footer-inner">
-		<div class="footer_question"><a href="#"><span class="question">&nbsp;</span> Вопросы и ответы</a></div>
-		<ul class="footer-ul ul-clear">
-			<li><a href="#">Справочник организаций</a></li>
-			<li><a href="#">Льготы</a></li>
-			<li><a href="#">Нормативы по теплу</a></li>
-			<li><a href="#">Тарифы</a></li>
-		</ul>
-		<div class="feedback">
-			<a href="#">ОБРАТНАЯ СВЯЗЬ</a>
-		</div>
-		<div class="like">
-                              <div class="b-social">
-                          <div class="soc fb"><img src="{{ asset('bundles/jkh/img/soc-fb.png') }}"></div>
-                          <div class="soc vk"><img src="{{ asset('bundles/jkh/img/soc-vk.png') }}"></div>
-                          <div class="soc tw"><img src="{{ asset('bundles/jkh/img/soc-tw.png') }}"></div>
-                          <div class="soc ok"><img src="{{ asset('bundles/jkh/img/soc-ok.png') }}"></div>
-
-                      </div><!--b-social-->
-        </div>
-		<div class="banner"><a href="#"><img src="img/banner.png" alt=''/></a></div>
-		<div class="footer-like">
-			<a href="#" class="twitter">&nbsp;</a>&nbsp; 
-			<a href="#" class="facebook">&nbsp;</a>&nbsp;
-			<a href="#" class="vk">&nbsp;</a>&nbsp;
-		</div>
-		<div class="copyrights">&copy; 2013, ЖКХ-online</div>
-		<div class="support"><a href="#">Разработка сайта <img src="css/pict/link.png" alt=''/></a></div> 
-
-	</div>
-</div><!-- .footer -->
+{% include 'footer.html.twig' %}
 
 
 </div><!-- .wrapper -->
@@ -216,14 +185,10 @@
 {% include 'modal-windows.html.twig' %}
 <script type="text/javascript" src="{{ asset('bundles/jkh/js/actionscript.js') }}"></script>
 
+
     <script type="text/javascript">
 		$(document).ready(function() {
-			$('#forg_pass').click( function(event){
-				event.preventDefault(); // выключaем стaндaртную рoль элементa
-				$('#password2') 
-				 			.css('display', 'block')
-				 			.animate({opacity: 1, top: '0%'}, 200);
-			});
+
 			$('.e-tweet').click( function(event){
 				event.preventDefault(); // выключaем стaндaртную рoль элементa
 				var data_org_id = this.getAttribute('data-org-id');
@@ -231,43 +196,6 @@
 						.css('display', 'block')
 						.animate({opacity: 1, top: '0%'}, 200);
 				$('#elektron #orgid-id').val(data_org_id);//заносим в скрытое поле id организации-получателя
-			});
-
-			$('#login').submit(function(){
-				$.ajax({
-					type: "POST",
-					url: "{{ path('_jkh_login') }}",
-					data: $(this).serialize(),
-					success: function(data){
-					     alert("Сообщение: " + data);
-					}
-				});
-				return false;
-			});
-
-			$('#logout').click(function(event){
-				event.preventDefault();
-				$.ajax({
-					type: "POST",
-					url: "{{ path('_jkh_logout') }}",
-					success: function(data){
-					     alert("Прибыли данные: " + data);
-					}
-				});
-				return false;
-			});
-
-			$("#recovery_pass").submit(function(){
-				alert("Отправка ajax");
-				$.ajax({
-					type: "POST",
-					url: "{{ path('_jkh_recoverypass') }}",
-					data: $(this).serialize(),
-					success: function(data){
-					    alert("Прибыли данные: " + data);
-					}
-				});
-				return false;
 			});
 
 			$("#e-tweet-form").submit(function(){
