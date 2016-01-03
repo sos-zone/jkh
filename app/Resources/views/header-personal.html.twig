@@ -15,7 +15,9 @@
 					type: "POST",
 					url: "{{ path('_jkh_logout') }}",
 					success: function(data){
-					     alert("Прибыли данные: " + data);
+						var current_http = document.location.href;
+					    //alert("Прибыли данные: " + data);
+					    document.location.href = current_http;
 					}
 				});
 				return false;

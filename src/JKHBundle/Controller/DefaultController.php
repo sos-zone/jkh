@@ -220,6 +220,7 @@ class DefaultController extends Controller
 
     public function loginAction()
     {
+        
         $email = trim($_POST["email"]);
         $pass = trim($_POST["pass"]);
         
@@ -230,21 +231,13 @@ class DefaultController extends Controller
 
         if (!$User) {
             $_SESSION["is_auth"] = false;
-            return new Response('Повторите попытку');
+            return new Response("false");
         }
         else {
             $_SESSION["is_auth"] = true;
-            //$request = $this->getRequest();
-            //$fio = $User->getFio();
-            //return new Response('Добро пожаловать сэр '.$fio.' '.$request);
-            
-            //return $this->redirect($this->generateUrl('jkh_homepage'));
-
-            $response = $this->forward('JKHBundle:Default:index.html.twig',
-                                    array('is_auth' => true,
-                                            'name' => "Сергей" ));
-            return $response;
+            return new Response("true");
         }
+
     }
 
     public function logoutAction()

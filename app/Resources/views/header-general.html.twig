@@ -65,7 +65,14 @@
           url: "{{ path('_jkh_login') }}",
           data: $(this).serialize(),
           success: function(data){
-               alert("Сообщение: " + data);
+            var current_http = document.location.href;
+              if (data == "true") {
+                //alert("Вход успешный " + data);
+                document.location.href = current_http;
+              }
+              else {
+                alert("Проверьте правильность вводимых данных и повторите попытку");
+              }
           }
         });
         return false;
