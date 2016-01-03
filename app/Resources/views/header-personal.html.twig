@@ -1,7 +1,7 @@
 	<div class="header">
 		<div class="logo"><a href="#"><img src="img/logo.png" alt="Лого" title="Логотип Компании"></a></div><!--.logo-->
-		<div class="header_user">Якушевский Виталий {{ name }} </div>
-		<div class="header_user_data"><a title="Изменить личные данные" href="#">Изменить личные данные</a></div>
+		<div class="header_user">{{ fio }} </div>
+		<div class="header_user_data"><a title="Изменить личные данные" href="{{ path('_jkh_personalcab') }}">Изменить личные данные</a></div>
 		<div class="header_user_exit"><a title="Выход" href="#" id="logout">Выход <span class="exit">&nbsp;</span></a></div>
 		<div class="header_user_personal-account"><a title="Все лицевые счета" href="#"><span class="personal-account">&nbsp;</span>Все лицевые счета</a></div>
 	</div><!-- .header-->

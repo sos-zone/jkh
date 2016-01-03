@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>_ personal_info.html _</title>
+	<link href='http://fonts.googleapis.com/css?family=PT+Sans:700,400&subset=latin,cyrillic-ext' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="{{ asset('bundles/jkh/css/style.css') }}" type="text/css" media="screen, projection" />
+	<!--[if IE ]><link rel="stylesheet" href="css/ie.css" type="text/css" media="screen, projection" /><![endif]-->
+	<script type="text/javascript" src="{{ asset('bundles/jkh/js/jquery.min.js') }}"></script>
+</head>
+
+<body class="base">
+
+<div class="wrapper">
+
+	{% include 'header-personal.html.twig' %}
+
+	<div class="middle">
+		<div class="personal-info">
+			<div class="personal-info_title">
+				Личные данные
+				<a herf="#" onClick='confirm("Подтвердить удаление")'><span class="delete">&nbsp;</span> Удалить учётную запись</a>
+			</div><!-- .personal-info -->
+			<div class="personal-info_left">
+				<form id="changeuserinfo">
+					<div class="personal-info_left_data">
+						<div>E-mail: <input type="text" value="{{ email }}" name="email"></div>
+						<div>ФИО:<input type="text" value="{{ fio }}" name=""></div>
+					</div>
+					<div class="personal-info_left_password">
+						Изменить пароль<br><br>
+						<div>Старый пароль:<input type="text" value="123456"></div>
+						<div>Новый пароль:<input type="text" value="123456"></div>
+						<div>Ещё раз новый пароль:<input type="text" value="654321"></div>
+					</div>				
+					<div class="personal-info_left_bottom">
+						<input class="orange-43" type="submit" value="Сохранить">&nbsp;&nbsp;&nbsp;<span class="green-rem">&nbsp;</span>&nbsp;Изменения сохранены 
+					</div>
+				</form>	
+			</div>
+			<div class="personal-info_right">
+				<div class="personal-info_right_title">Подписка на получение уведомлений</div>
+				<input type="checkbox"  class="radio-input"><span class="radio-text">Уведомления о новых объявлениях и новостях</span><br>
+				<input type="checkbox"  class="radio-input"><span class="radio-text">Счет-извещение по электронной почте</span><br>
+				<input type="checkbox"  class="radio-input"><span class="radio-text">Напоминание о необходимости ввода новых показаний</span><br>
+				<input type="checkbox"  class="radio-input"><span class="radio-text">Напоминание о приближении крайнего срока оплаты</span><br>
+				<input type="checkbox"  class="radio-input"><span class="radio-text">Напоминание о начале начисленй пени</span><br><br>
+				<input class="orange-43" type="button" value="Сохранить">
+				
+			</div>
+			<div class="separator"></div>
+		</div><!-- .personal-info -->
+		
+
+
+
+
+
+<!-- управление, только в демо целях START -->
+<div style="width:200px; padding:10px; background:rgba(200,200,0, 0.5); position: fixed; top:10px; left:10px; border:green 2px solid; z-index:20;">
+	Ввод не корректного значения.
+	<input id="test_state" type="button" value="отобразить/снять"><br>
+		<script type="text/javascript">
+			$('#test_state').toggle(
+				  function () {
+					$('.personal-info_left input[type="text"]').addClass('personal-info_left_input-error');
+				  },
+
+				  function () {
+					$('.personal-info_left input[type="text"]').removeClass('personal-info_left_input-error');
+				  }
+				);
+		</script>
+
+
+
+</div>
+
+<!-- управление, только в демо целях END -->
+
+
+
+	</div><!-- .middle-->
+
+{% include 'footer.html.twig' %}
+
+</div><!-- .wrapper -->
+
+
+</body>
+</html>

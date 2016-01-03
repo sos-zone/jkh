@@ -5,18 +5,24 @@ namespace JKHBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use JKHBundle\Entity\User;
+use JKHBundle\Entity\Checker;
 use JKHBundle\Entity\Etweet;
 
 class DefaultController extends Controller
 {
+    /*   Проверка авторизирован ли пользователь     */
     public function check_auth($pagename)
     {
         if (!isset($_SESSION["is_auth"])) { $_SESSION["is_auth"] = false; }
         
         if ($_SESSION["is_auth"] == true) {
-            return array('pname' => "JKHBundle:Default:$pagename",
+        $User = $this->getDoctrine()
+                    ->getRepository('JKHBundle:User')
+                    ->findOneBy(array('email' => $_SESSION["email"]));
+
+        return array('pname' => "JKHBundle:Default:$pagename",
                          'argum' => array('is_auth' => true,
-                                            'name' => "Сергей" )
+                                            'fio' => $User->getFio() )
                          );
         }
         else {
@@ -24,10 +30,9 @@ class DefaultController extends Controller
                          'argum' => array('is_auth' => false ) 
                         );                
         }
-
     }
 
-
+    /*   Переходы по ссылкам    */
     public function indexAction()
     {
         $answer = $this->check_auth('promo_new.html.twig');
@@ -46,6 +51,20 @@ class DefaultController extends Controller
         return $this->render($answer['pname'],$answer['argum']);
     }
 
+    public function personalcabAction()
+    {
+        $User = $this->getDoctrine()
+        ->getRepository('JKHBundle:User')
+        ->findOneBy(array('email' => 'new_word@tut.by'));
+
+        return $this->render('JKHBundle:Default:personal_info.html.twig',
+                             array('is_auth' => true,
+                                   'fio' => $User->getFio(),
+                                   'email' => $User->getEmail())
+                        );
+    }
+
+    /*   Регистрация пользователя   */
     public function registrAction()
     {
         $indentNum = trim($_POST["indent_num"]);
@@ -62,41 +81,68 @@ class DefaultController extends Controller
         $User->setPass($pass);
         $User->setFio($fio);
 
-        $checkmailcode = rand(); //случайное число для подтверждения email
-
-
-        //Формируем сущность
-        $Checker = new Checker();
-        $Checker->setEmail($email);
-        $Checker->setCheckmailcode($checkmailcode);
-
-
         $em = $this->getDoctrine()->getEntityManager();
         $em->persist($User);
         $em->flush();
+
+
+        $secretcode = rand(); //случайное число для подтверждения email
+
+        $Checker = new Checker();
+        $Checker->setEmail($email);
+        $Checker->setCheckmailcode($secretcode);
 
         $em = $this->getDoctrine()->getEntityManager();
         $em->persist($Checker);
         $em->flush();
 
+
         /* send confirm email */
-        $recepient = $User->getEmail($email);
+        $recepient = $User->getEmail($email);;
         $sitename = "JKH-SITE";
-        $email = $User->getEmail($email);
-        $message ="Для завершения регистрации пройдите пожалуйста по <a href=\"{{ path('_jkh_etweet') }}\">данной ссылке</a> \n либо вставте следующую строку: \n {{ path('_jkh_etweet') }} \n в адресную строку браузера и перейдите по ней на страницу подтверждения";
-        $pagetitle ="Подтверждение регистрации с сайта \"$sitename\"";
-        mail($recepient,$pagetitle,$message, "Content-type: text/plain; charset=\"utf-8\"\n From: $recepient");
+        
+        $message = \Swift_Message::newInstance()
+                    ->setSubject("Регистрация на сайте $sitename")
+                    ->setFrom('info@site.com')
+                    ->setTo($recepient)
+                    ->setBody(
+                        $this->renderView(
+                            'emails/registratletter.html.twig',
+                            array('sitename' => $sitename,
+                                    'recepient' => $recepient,
+                                    'secretcode' => $secretcode)
+                        ),
+                        'text/html'
+                    )
+                    ->addPart(
+                        $this->renderView(
+                            'emails/registratletter.html.twig',
+                            array('sitename' => $sitename,
+                                    'recepient' => $recepient,
+                                    'secretcode' => $secretcode)
+                        ),
+                        'text/plain'
+                    )
+            ;
+        $this->get('mailer')->send($message);
 
 
         return new Response('Created User id '.$User->getId());
         //return $this->render('JKHBundle:Default:auth5.html.twig');        
     }
 
-    public function checkemailAction($checkmailcode)
+    public function checkemailAction()
     {
+        $request = $this -> getRequest();
+        $checkmailcode = $request->query->get('code');
+        $email = $request->query->get('email');
+
         $Checker = $this->getDoctrine()
         ->getRepository('JKHBundle:Checker')
-        ->findOneBy(array('checkmailcode' => $checkmailcode));
+        ->findOneBy(array('email' => $email,
+                            'checkmailcode' => $checkmailcode
+                        )
+                    );
 
         if (!$Checker) {
             $_SESSION["is_auth"] = false;
@@ -104,19 +150,11 @@ class DefaultController extends Controller
         }
         else {
             $_SESSION["is_auth"] = true;
-            //$request = $this->getRequest();
-            //$fio = $User->getFio();
-            //return new Response('Добро пожаловать сэр '.$fio.' '.$request);
-            
-            //return $this->redirect($this->generateUrl('jkh_homepage'));
-
-            /*
-            $response = $this->forward('JKHBundle:Default:index.html.twig',
-                                    array('is_auth' => true,
-                                            'name' => "Сергей" ));
-            return $response;
-            */
-            return new Response('Спасибо за регистрацию. Добро пожаловать.');
+            //return new Response('Спасибо за регистрацию. Добро пожаловать.');
+            // return $this->render('JKHBundle:Default:promo_new.html.twig',
+            //                 array('is_auth' => false,
+            //                       'emailok' => true )
+            //            );
         }
     }
 
@@ -132,51 +170,61 @@ class DefaultController extends Controller
             return new Response('Данного email не найдено. Проверьте правильность написания.');
         }
         else {
-            /* Отправка Секретного кода на восстановление пароля */
+            /* Отправка письма с секретным кодом на восстановление пароля */
             $secretcode = rand(); //случайное число для подтверждения email
             $recepient = "new_word@tut.by";
             $sitename = "JKH-SITE";
 
-            //Формируем сущность
-            $Checker = new Checker();
-            $Checker->setEmail($recepient);
-            $Checker->setCheckmailcode($secretcode);
 
-            $em = $this->getDoctrine()->getEntityManager();
-            $em->persist($Checker);
-            $em->flush();
+
+            $Checker = $this->getDoctrine()
+                    ->getRepository('JKHBundle:Checker')
+                    ->findOneBy(array('email' => $recepient));
+
+            if (!$Checker) {
+                //Формируем сущность
+                $Checker = new Checker();
+                $Checker->setEmail($recepient);
+                $Checker->setCheckmailcode($secretcode);            
+
+                $em = $this->getDoctrine()->getEntityManager();
+                $em->persist($Checker);
+                $em->flush();
+            }
+            else {
+                $Checker->setCheckmailcode($secretcode);
+                $em = $this->getDoctrine()->getEntityManager();
+                $em->flush();
+            }
 
 
             $message = \Swift_Message::newInstance()
-                    ->setSubject("Запрос на восстановление пароля с сайта $sitename")
-                    ->setFrom('info@site.com')
-                    ->setTo($recepient)
-                    ->setBody(
-                        $this->renderView(
-                            'emails/forgetpassletter.html.twig',
-                            array('sitename' => $sitename,
-                                    'recepient' => $recepient,
-                                    'secretcode' => $secretcode)
-                        ),
-                        'text/html'
-                    )
-                    ->addPart(
-                        $this->renderView(
-                            'emails/forgetpassletter.html.twig',
-                            array('sitename' => $sitename,
-                                    'recepient' => $recepient,
-                                    'secretcode' => $secretcode)
-                        ),
-                        'text/plain'
-                    )
-            ;
+                        ->setSubject("Запрос на восстановление пароля с сайта $sitename")
+                        ->setFrom('info@site.com')
+                        ->setTo($recepient)
+                        ->setBody(
+                            $this->renderView(
+                                'emails/forgetpassletter.html.twig',
+                                array('sitename' => $sitename,
+                                        'recepient' => $recepient,
+                                        'secretcode' => $secretcode)
+                            ),
+                            'text/html'
+                        )
+                        ->addPart(
+                            $this->renderView(
+                                'emails/forgetpassletter.html.twig',
+                                array('sitename' => $sitename,
+                                        'recepient' => $recepient,
+                                        'secretcode' => $secretcode)
+                            ),
+                            'text/plain'
+                        )
+                ;
             $this->get('mailer')->send($message);
 
             return new Response('На указанный емаил отправлены инструкции по восстановлению пароля');            
         }
-
-
-        
     }
 
     public function recoverypassletterAction($checkmailcode)
@@ -191,7 +239,7 @@ class DefaultController extends Controller
         ->findOneBy(array('email' => $email, 'checkmailcode' => $checkmailcode));
 
         if (!$Checker) {
-            return new Response('Данной заявки не найдено. Попробуйте повторить действия по восстановлению пароля заново.');
+            return new Response('Данной заявки не найдено либо она устарела. Попробуйте повторить действия по восстановлению пароля заново.');
         }
         else {
             return $this->render('JKHBundle:Default:promo_new.html.twig',
@@ -207,14 +255,16 @@ class DefaultController extends Controller
         $pass = trim($_POST["pass"]);
 
 
-        $em = $this->getDoctrine()->getEntityManager();
-        $User = $em->getRepository('JKHBundle:User')->findOneBy(array('email' => $email, 'pass' => $pass));
+        
+        $User = $em->getRepository('JKHBundle:User')->findOneBy(array('email' => $email));
 
         $User->setPass($pass);
-
+        
+        $em = $this->getDoctrine()->getEntityManager();
         $em->flush();
 
-        return $this->redirect($this->generateUrl('jkh_homepage'));
+        //return $this->redirect($this->generateUrl('jkh_homepage'));
+        return new Response('Пароль изменен!');
     }
 
 
@@ -235,14 +285,15 @@ class DefaultController extends Controller
         }
         else {
             $_SESSION["is_auth"] = true;
+            $_SESSION["email"] = $email;
             return new Response("true");
         }
-
     }
 
     public function logoutAction()
     {
         $_SESSION["is_auth"] = false;
+        unset($_SESSION["email"]);
         return new Response('До свидания'); 
     }
 

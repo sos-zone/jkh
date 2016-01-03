@@ -1,0 +1,6 @@
+Вы либо кто-то другой указали данный Email: {{ recepient }} при регистрации на сайте {{ sitename }}
+Для окончания регистрации перейдите по 
+<a href="{{ url('jkh_homepage') }}?code={{ secretcode }}&email={{ recepient }}&emailok=true">данной ссылкой</a>
+либо скопируйте следующую строку: 
+{{ url('jkh_homepage') }}?code={{ secretcode }}&email={{ recepient }}&emailok=true
+в адресную строку браузера и перейдите по ней на страницу окончания регистрации

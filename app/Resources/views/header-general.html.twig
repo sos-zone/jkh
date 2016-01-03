@@ -97,5 +97,21 @@
         return false;
       });
 
+      $('#changepassform').submit(function(){
+        $('#password1') 
+              .css('display', 'none')
+              .animate({opacity: 0, top: '0%'}, 200);
+      
+        $.ajax({
+          type: "POST",
+          url: "{{ path('_jkh_changepass') }}",
+          data: $(this).serialize(),
+          success: function(data){
+               alert("Сообщение: " + data);
+          }
+        });
+        return false;
+      });
+
     });
 </script>
