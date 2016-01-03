@@ -22,6 +22,14 @@ _jkh_recoverypass:
     path:     /recoverypass
     defaults: { _controller: JKHBundle:Default:recoverypass }
 
+_jkh_recoverypassletter:
+    path:     /recoverypassletter/{checkmailcode}
+    defaults: { _controller: JKHBundle:Default:recoverypassletter }
+
+_jkh_changepass:
+    path:     /changepass
+    defaults: { _controller: JKHBundle:Default:changepass }
+
 _jkh_login:
     path:     /login
     defaults: { _controller: JKHBundle:Default:login }

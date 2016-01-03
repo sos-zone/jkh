@@ -233,7 +233,7 @@
   </div>
   <!-- .middle--> 
   
-{% include 'footer.html.twig' %}
+{% include 'footer-promo_new.html.twig' %}
   
 </div>
 <!-- .wrapper -->
@@ -244,7 +244,29 @@
 
 
     <script type="text/javascript">
+    
+    /* функция для разбора get запроса  */
+    function getUrlVars()
+    {
+        var vars = [], hash;
+        var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+        for(var i = 0; i < hashes.length; i++)
+        {
+            hash = hashes[i].split('=');
+            vars.push(hash[0]);
+            vars[hash[0]] = hash[1];
+        }
+        return vars;
+    }
+
     $(document).ready(function() {
+    
+      //проверяем на запрос смены пароля, если true => вызываем диалог по смене пароля
+      if (typeof getUrlVars()["changepass"] !=="undefined"){
+          $('#password1') 
+            .css('display', 'block')
+            .animate({opacity: 1, top: '0%'}, 200);
+      }
 
       //REGISTRATION NEW USER START
       $('.btn-start').click( function(event){
@@ -302,10 +324,27 @@
       });
 
 
+      $('#changepassform').submit(function(){
+        
+        $('#password1') 
+              .css('display', 'none')
+              .animate({opacity: 0, top: '0%'}, 200);
+      
+        $.ajax({
+          type: "POST",
+          url: "{{ path('_jkh_changepass') }}",
+          data: $(this).serialize()//,
+          // success: function(data){
+          //      alert("Сообщение: " + data);
+          // }
+        });
+        return false;
+      });
 
 
     });
     </script>
+
 
 </body>
 </html>

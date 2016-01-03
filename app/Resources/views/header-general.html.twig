@@ -79,13 +79,12 @@
       });
 
       $("#recovery_pass").submit(function(){
-        alert("Отправка ajax");
         $.ajax({
           type: "POST",
           url: "{{ path('_jkh_recoverypass') }}",
           data: $(this).serialize(),
           success: function(data){
-              alert("Прибыли данные: " + data);
+              alert("Сообщение: " + data);
           }
         });
         return false;

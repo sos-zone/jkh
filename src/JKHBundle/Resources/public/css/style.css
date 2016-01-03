@@ -89,7 +89,7 @@ a:hover {color:#155b9e}
     padding: 15px;
     position: absolute;
     top: 420px;
-    width: 177px; z-index:49; font-family:Arial, Helvetica, sans-serif; line-height:16px}
+    width: 177px; z-index:1; font-family:Arial, Helvetica, sans-serif; line-height:16px}
 .promo .header .bubble b{ font-size:14px}
 .promo .header .bubble i { font-size:11px; padding-top:8px; display:block; }
 .base  .logo {    left: 20px;    position: absolute;    top: 13px;}

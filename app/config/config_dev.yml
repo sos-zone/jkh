@@ -33,3 +33,8 @@ monolog:
 
 #swiftmailer:
 #    delivery_address: me@example.com
+# Swiftmailer Configuration
+swiftmailer:
+    transport: "gmail"
+    username:  "test83383"
+    password:  "test833835"

@@ -700,13 +700,15 @@
 
 <div id="password1" class="modal-window-wrapper"> <!-- 14 Пароль 1 -->
   <div class="div-password1">
-    <div class="btn-close"><span class="exit-big">&nbsp;</span></div>
-    <div class="div-password1_title">Новый пароль</div>
-    Придумайте и введите новый пароль<br>
-    <input type="text"><br><br>
-    Повторите пароль<br>
-    <input type="text"><br><br>
-    <input type="button" value="Готово" class="orange-43">
+    <form id="changepassform">
+      <div class="btn-close"><span class="exit-big">&nbsp;</span></div>
+      <div class="div-password1_title">Новый пароль</div>
+      Придумайте и введите новый пароль<br>
+      <input type="text" name="pass"><br><br>
+      Повторите пароль<br>
+      <input type="text" name="re-pass"><br><br>
+      <input type="submit" value="Готово" class="orange-43">
+    </form>
   </div>  
 </div>
 
