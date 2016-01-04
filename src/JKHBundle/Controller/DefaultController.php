@@ -53,15 +53,21 @@ class DefaultController extends Controller
 
     public function personalcabAction()
     {
-        $User = $this->getDoctrine()
-        ->getRepository('JKHBundle:User')
-        ->findOneBy(array('email' => 'new_word@tut.by'));
+        if ($_SESSION["is_auth"] == true && isset($_SESSION["email"])) {
+            $User = $this->getDoctrine()
+            ->getRepository('JKHBundle:User')
+            ->findOneBy(array('email' => 'new_word@tut.by'));
 
-        return $this->render('JKHBundle:Default:personal_info.html.twig',
-                             array('is_auth' => true,
-                                   'fio' => $User->getFio(),
-                                   'email' => $User->getEmail())
-                        );
+            return $this->render('JKHBundle:Default:personal_info.html.twig',
+                                 array('is_auth' => true,
+                                       'fio' => $User->getFio(),
+                                       'email' => $User->getEmail())
+                            );
+        }
+        else {
+            $answer = $this->check_auth('promo_new.html.twig');
+            return $this->render($answer['pname'],$answer['argum']);
+        }
     }
 
     /*   Регистрация пользователя   */
@@ -277,6 +283,27 @@ class DefaultController extends Controller
         $User = $this->getDoctrine()
         ->getRepository('JKHBundle:User')
         ->findOneBy(array('email' => $email, 'pass' => $pass));
+
+
+        if (!$User) {
+            $_SESSION["is_auth"] = false;
+            return new Response("false");
+        }
+        else {
+            $_SESSION["is_auth"] = true;
+            $_SESSION["email"] = $email;
+            return new Response("true");
+        }
+    }
+
+    public function loginfirstAction()
+    {
+        
+        $email = trim($_POST["email"]);
+        
+        $User = $this->getDoctrine()
+        ->getRepository('JKHBundle:User')
+        ->findOneBy(array('email' => $email));
 
 
         if (!$User) {

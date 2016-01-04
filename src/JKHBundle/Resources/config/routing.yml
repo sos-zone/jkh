@@ -22,6 +22,10 @@ _jkh_checkemail:
     path:     /checkemail
     defaults: { _controller: JKHBundle:Default:checkemail }
 
+_jkh_loginfirst:
+    path:     /loginfirst
+    defaults: { _controller: JKHBundle:Default:loginfirst }
+
 _jkh_recoverypass:
     path:     /recoverypass
     defaults: { _controller: JKHBundle:Default:recoverypass }

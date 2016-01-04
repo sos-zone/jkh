@@ -21,7 +21,8 @@
   <div class="header slideblock">
     <div class="bubble"> <b>bootook1287</b><br>
       присоединился к сервису<br>
-      <i>ул. Ольшевского, 23</i> </div>
+      <i>ул. Ольшевского, 23</i>
+    </div>
     <div class="logo"><a href="#" ><img src="{{ asset('bundles/jkh/img/logo-promo.png') }}" alt="Лого" title="Логотип Компании"></a></div>
     <!--.logo-->
     <div class="promo_header_menu_wrapper">
@@ -34,7 +35,9 @@
 
 
     {% if is_auth == true %}
-      {% include 'header-personal.html.twig' %}
+      <div class="promo-base">
+        {% include 'header-personal.html.twig' %}
+      </div>
     {% endif %}
 
     {% if is_auth == false %}
@@ -270,10 +273,25 @@
 
       //проверяем на запрос успешной регистрации, если true => вызываем окно с поздравлениями
       if (typeof getUrlVars()["emailok"] !=="undefined"){
+          $('#registration5 #email_id').val('modstore@mail.ru');
           $('#registration5') 
             .css('display', 'block')
             .animate({opacity: 1, top: '0%'}, 200);
       }
+      //Кнопка начать работу при успешной регистрации
+      $('#startworkmodal').submit(function(){
+        $('#registration5') 
+              .css('display', 'none');
+        $.ajax({
+          type: "POST",
+          url: "{{ path('_jkh_loginfirst') }}",
+          data: $(this).serialize(),
+          success: function(data){
+               alert("Сообщение: " + data);
+          }
+        });
+      });
+
 
       //REGISTRATION NEW USER START
       $('.btn-start').click( function(event){
@@ -282,7 +300,6 @@
               .css('display', 'block')
               .animate({opacity: 1, top: '0%'}, 200);
       });
-
 
       $('#registr1').submit(function(){
         $('#registration') 

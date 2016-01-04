@@ -1307,3 +1307,41 @@ a.news_title-link {display:block; position:absolute; left:19px;}
 .line { margin:5px 0 0} 
 
 
+/*** add style   */
+.promo-base .header {
+    height: 85px;
+    position:relative;
+}
+
+.promo-base .header a {
+    font-size: 16px;
+}
+.promo-base .logo {
+    left: 20px;
+    position: absolute;
+    top: 13px;
+}
+.promo-base .header_user {
+    font-size: 20px;
+    font-weight: bold;
+    left: 100px;
+    position: absolute;
+    top: 29px;
+}
+.promo-base .header_user_data {
+    left: 371px;
+    position: absolute;
+    top: 33px;
+}
+.promo-base .header_user_exit {
+    left: 573px;
+    position: absolute;
+    top: 33px;
+}
+.promo-base .header_user_personal-account {
+    left: 803px;
+    position: absolute;
+    top: 33px;
+}
+
+

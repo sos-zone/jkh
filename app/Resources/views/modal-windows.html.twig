@@ -629,7 +629,11 @@
       <div class="pad-30"></div>
       <a href="{{ path('_jkh_personalcab') }}">Изменить свои личные данные</a><br>
       <a href="{{ path('_jkh_personalcab') }}">Настроить уведомления</a><br><br>
-      <input type="button" value="Начать работу"  class="orange-43">
+      <form id="startworkmodal">
+        <input type="hidden" id="email_id" name="email" value="">
+        <input type="submit" value="Начать работу"  class="orange-43">
+      </form>
+      
       
     </div>    
   </div>  
