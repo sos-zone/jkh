@@ -52,19 +52,40 @@
       });
 
       $('#changepassform').submit(function(){
-        $('#password1') 
-              .css('display', 'none')
-              .animate({opacity: 0, top: '0%'}, 200);
-      
-        $.ajax({
-          type: "POST",
-          url: "{{ path('_jkh_changepass') }}",
-          data: $(this).serialize(),
-          success: function(data){
-               alert("Сообщение: " + data);
-          }
-        });
-        return false;
+        var message = ""; //Переменная для "ошибок""
+
+        if ( $('#newpass_id').val() !== $('#re-newpass_id').val() ) {
+              message = message + "Поля ввода и проверки пароля не совпадают. ";
+        }
+        if ( $('#newpass_id').val().length < 6 ) {
+              message = message + "Пароль должен быль более 6 символов. ";
+        }
+
+        //если есть ошибки
+        if (message !=="") { 
+          $('#changepassform input[type="password"][name="newpass"]').addClass('personal-info_left_input-error'); 
+          $('#changepassform input[type="password"][name="re-newpass"]').addClass('personal-info_left_input-error');
+          $('#changepassform .changepasserr').text(message);
+          return false;
+        }
+        //если ошибок нет
+        else {
+          $('#password1') 
+                .css('display', 'none')
+                .animate({opacity: 0, top: '0%'}, 200);
+        
+          $.ajax({
+            type: "POST",
+            url: "{{ path('_jkh_changepass') }}",
+            data: $(this).serialize(),
+            success: function(data){
+                 alert("Сообщение: " + data);
+            }
+          });
+          return false;
+        }
+
+        
       });
 
     });

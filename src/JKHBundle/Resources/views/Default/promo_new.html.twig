@@ -286,12 +286,13 @@
       //проверяем на запрос успешной регистрации, если true => вызываем окно с поздравлениями
       if (typeof getUrlVars()["emailok"] !=="undefined"){
           $('#registration5 #email_id').val( getUrlVars()["email"] );
+          $('#registration5 #code_id').val( getUrlVars()["code"] );
           $('#registration5') 
             .css('display', 'block')
             .animate({opacity: 1, top: '0%'}, 200);
       }
       //Кнопка начать работу при успешной регистрации
-      $('#startworkmodal').submit(function(){
+      $('#registr5').submit(function(){
         $('#registration5') 
               .css('display', 'none');
         $.ajax({
@@ -300,11 +301,37 @@
           data: $(this).serialize(),
           success: function(data){
                if (data == "true") {
+                //alert("Сообщение: " + data);
+               }
+               else {
                 alert("Сообщение: " + data);
                }
+               window.location.href = "{{ path('jkh_homepage')}}"
           }
         });
+        return false;
       });
+      
+      //Ссылки начать работу при первой успешной регистрации
+      $('.firstworklink').click( function(event){
+        event.preventDefault(); // выключaем стaндaртную рoль элементa
+        $.ajax({
+          type: "POST",
+          url: "{{ path('_jkh_loginfirst') }}",
+          data: $('form#registr5').serialize(),
+          success: function(data) {
+               if (data == "true") {
+                //alert("Сообщение: " + data);
+               }
+               else {
+                alert("Сообщение: " + data);
+               }
+               window.location.href = "{{ path('_jkh_personalcab')}}"
+          }
+        });
+
+      });
+
 
 
       //REGISTRATION NEW USER START

@@ -22,7 +22,7 @@ class DefaultController extends Controller
 
         return array('pname' => "JKHBundle:Default:$pagename",
                          'argum' => array('is_auth' => true,
-                                            'fio' => $User->getFio() )
+                                            'fio' => $_SESSION["fio"] )
                          );
         }
         else {
@@ -350,10 +350,10 @@ class DefaultController extends Controller
 
     public function loginAction()
     {
-        
         $email = htmlspecialchars( trim($_POST["email"]) );
         $pass = md5( htmlspecialchars( trim($_POST["pass"]) ) );
         
+
         $User = $this->getDoctrine()
         ->getRepository('JKHBundle:User')
         ->findOneBy(array('email' => $email, 'pass' => $pass));
@@ -366,28 +366,46 @@ class DefaultController extends Controller
         else {
             $_SESSION["is_auth"] = true;
             $_SESSION["email"] = $email;
+            $_SESSION["fio"] = $User->getFio();
             return new Response("true");
         }
     }
 
     public function loginfirstAction()
     {
-        
         $email = htmlspecialchars( trim($_POST["email"]) );
+        $code = htmlspecialchars( trim($_POST["code"]) );
         
-        $User = $this->getDoctrine()
-        ->getRepository('JKHBundle:User')
-        ->findOneBy(array('email' => $email));
+        
+        $em = $this->getDoctrine()->getEntityManager();
+        $Checker = $em->getRepository('JKHBundle:Checker')->findOneBy(array('email' => $email, 'checkmailcode' => $code));
 
 
-        if (!$User) {
+        if (!$Checker) {
             $_SESSION["is_auth"] = false;
-            return new Response("false");
+            return new Response("Данного проверочного кода не найдено. Возможно вы уже подтверждали Ваш email. Авторизируйтесь через панель ввода eмаил и пароля.");
         }
         else {
-            $_SESSION["is_auth"] = true;
-            $_SESSION["email"] = $email;
-            return new Response("true");
+
+            $em->remove($Checker);
+            $em->flush();
+
+
+            $User = $this->getDoctrine()
+            ->getRepository('JKHBundle:User')
+            ->findOneBy(array('email' => $email));
+
+
+            if (!$User) {
+                $_SESSION["is_auth"] = false;
+                return new Response("false: no user");
+            }
+            else {
+                $_SESSION["is_auth"] = true;
+                $_SESSION["email"] = $email;
+                $_SESSION["fio"] = $User->getFio();
+                return new Response("true");
+            }
         }
     }
 

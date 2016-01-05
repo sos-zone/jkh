@@ -627,11 +627,12 @@
       <div class="div-registration_title">Поздравляем!</div>
       Вы зарегистрировались на нашем сайте<br>
       <div class="pad-30"></div>
-      <form id="startworkmodal">
-        <a href="{{ path('_jkh_personalcab') }}">Изменить свои личные данные</a><br>
-        <a href="{{ path('_jkh_personalcab') }}">Настроить уведомления</a><br><br>
+      <form id="registr5">
+        <a href="#" class="firstworklink">Изменить свои личные данные</a><br>
+        <a href="#" class="firstworklink">Настроить уведомления</a><br><br>
       
         <input type="hidden" id="email_id" name="email" value="">
+        <input type="hidden" id="code_id" name="code" value="">
         <input type="submit" value="Начать работу"  class="orange-43">
       </form>
       
@@ -710,10 +711,11 @@
       <div class="btn-close"><span class="exit-big">&nbsp;</span></div>
       <div class="div-password1_title">Новый пароль</div>
       Придумайте и введите новый пароль<br>
-      <input type="password" name="newpass"><br><br>
+      <input type="password" id="newpass_id" name="newpass" required><br><br>
       Повторите пароль<br>
-      <input type="password" name="re-newpass"><br><br>
+      <input type="password" id="re-newpass_id" name="re-newpass" required><br><br>
       <input type="submit" value="Готово" class="orange-43">
+      <span class="changepasserr"></span>
     </form>
   </div>  
 </div>
@@ -754,7 +756,7 @@
 
 
 <!-- управление модальными, только в демо целях -->
-<div style="width:200px; padding:10px; background:rgba(200,200,0, 0.5); position: fixed; top:10px; left:10px; border:green 2px solid; z-index:20;">
+<!-- <div style="width:200px; padding:10px; background:rgba(200,200,0, 0.5); position: fixed; top:10px; left:10px; border:green 2px solid; z-index:20;">
   Управление модальными окнами.
   <input id="test_state" type="button" value="1 Управление лицевыми"><br> 
   <input id="test_6" type="button" value="3 График потребления"><br>  
@@ -774,7 +776,7 @@
   <input id="test_password2" type="button" value="18 Пароль 2"><br>
   Услуги организаций
   <input id="services_search" type="button" value="Типо результат поиска"><br>
-</div>
+</div> -->
 
 
 <!-- модальные END -->  
