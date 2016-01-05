@@ -290,7 +290,7 @@
           <td rowspan="5" class="right-row">
             Вы также можете прикрепить дополнительные документы, более полно раскрывающие суть вашего обращения:<br>
             <div style="position:relative">
-            <input   class="input-file" type="file" name="etweet_file_name">&nbsp;<span class="delete">&nbsp;</span><br>
+            <input   class="input-file" type="file" name="etweet_file_name"  disabled>&nbsp;<span class="delete">&nbsp;</span><br>
             </div>
             <div class="remark">Допустимые форматы: doc, docx, rtf, pdf, txt, jpg, rar, zip. Размер не более 1МБ.</div> 
           </td>       
@@ -369,7 +369,7 @@
           Для более наглядной иллюстрации  проблемы вы также можете прикрепить снимок экрана:<br>
           <div class="pad-10"></div>
           <div style="position:relative">
-            <input   class="input-file" type="file">
+            <input class="input-file" type="file">
             <span class="delete">&nbsp;</span>
           </div>
           <div class="pad-10"></div>
@@ -560,19 +560,19 @@
       <form id="registr2">
         <div class="div-registration_e-mail">
           <div class="orange_delete">E-mail</div>
-          <input type="text" id="email_id" name="email" required>
+          <input type="text" id="email_id" name="email">
         </div>
         <div class="div-registration_password">
           Пароль <span class="gray-12">(не менее 6 символов)</span><br>
-          <input type="password" id="pass" name="pass" required>
+          <input type="password" id="pass_id" name="pass" required>
         </div>
         <div class="div-registration_password">
           Повторите пароль<br>
-          <input type="password" id="re-pass" name="re-pass" required>
+          <input type="password" id="re-pass_id" name="re-pass" required>
         </div>
         <div class="separator pad-20"></div>
         <div class="div-registration_next">
-          <input type="submit" value="Далее"> <span class="orange_delete">Tакой e-mail уже используется<span>
+          <input type="submit" value="Далее"> <span id="errinfo" class="orange_delete">Tакой e-mail уже используется<span>
         </div>
       </form>
     </div>
@@ -627,9 +627,10 @@
       <div class="div-registration_title">Поздравляем!</div>
       Вы зарегистрировались на нашем сайте<br>
       <div class="pad-30"></div>
-      <a href="{{ path('_jkh_personalcab') }}">Изменить свои личные данные</a><br>
-      <a href="{{ path('_jkh_personalcab') }}">Настроить уведомления</a><br><br>
       <form id="startworkmodal">
+        <a href="{{ path('_jkh_personalcab') }}">Изменить свои личные данные</a><br>
+        <a href="{{ path('_jkh_personalcab') }}">Настроить уведомления</a><br><br>
+      
         <input type="hidden" id="email_id" name="email" value="">
         <input type="submit" value="Начать работу"  class="orange-43">
       </form>
@@ -705,12 +706,13 @@
 <div id="password1" class="modal-window-wrapper"> <!-- 14 Пароль 1 -->
   <div class="div-password1">
     <form id="changepassform">
+      <input type="hidden" id="emailfrom" name="email" value="">
       <div class="btn-close"><span class="exit-big">&nbsp;</span></div>
       <div class="div-password1_title">Новый пароль</div>
       Придумайте и введите новый пароль<br>
-      <input type="text" name="newpass"><br><br>
+      <input type="password" name="newpass"><br><br>
       Повторите пароль<br>
-      <input type="text" name="re-newpass"><br><br>
+      <input type="password" name="re-newpass"><br><br>
       <input type="submit" value="Готово" class="orange-43">
     </form>
   </div>  

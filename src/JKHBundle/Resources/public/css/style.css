@@ -549,7 +549,9 @@ input.promo_header_password {    background: url("pict/top-form.png") no-repeat 
     width: 219px; }
 	.promo .like .vk { background:none; padding:0}
 	.promo .like .b-social div { float:left; height:30px; margin:0 15px 0 0}
-.promo .footer .btn-start { background:url(pict/btn-green.png) no-repeat;
+.promo .footer .btn-start,  
+.promo .footer .btn-cab { 
+    background:url(pict/btn-green.png) no-repeat;
     color: #FFFFFF;
     font-size: 22px;
     height:79px;
@@ -558,7 +560,10 @@ input.promo_header_password {    background: url("pict/top-form.png") no-repeat 
     text-align: center;
     text-shadow: 0 2px 2px rgba(52, 52, 52, 0.8);
     top: 18px;
-    width: 293px; font-family:Tahoma, Geneva, sans-serif; font-weight:normal}
+    width: 293px; 
+    font-family:Tahoma, Geneva, sans-serif; 
+    font-weight:normal
+}
 .promo .footer .btn-start:hover { background-position:0 -79px; }
 .promo .footer .btn-demo {   font-size: 13px; text-decoration:underline; line-height:18px; font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
     height: 61px;
@@ -636,8 +641,8 @@ noindex:-o-prefocus,.orange-43:active
 
 .gray-12 	 {font-size:10px; color:#888888; font-weight:normal;}
 
-.orange_delete {color:#d14d07; font-size:16px;}
-.orange_delete:hover {color:#d14d07; font-size:16px;}	
+.orange_delete {color:#d14d07; font-size:16px;display: none;}
+.orange_delete:hover {color:#d14d07; font-size:16px;display: none;}	
 
 
 /* ************************ */ 
@@ -1307,7 +1312,7 @@ a.news_title-link {display:block; position:absolute; left:19px;}
 .line { margin:5px 0 0} 
 
 
-/*** add style   */
+/*** add my style   */
 .promo-base .header {
     height: 85px;
     position:relative;
@@ -1343,5 +1348,14 @@ a.news_title-link {display:block; position:absolute; left:19px;}
     position: absolute;
     top: 33px;
 }
+.div-registration_wrapper  input[type="submit"]  {    color: #262625;
+    font-size: 16px;
+    height: 31px;
+    left: 180px;
+    position: absolute;
+    top: 184px;
+    width: 78px;}
+.savechangeok1, .savechangeok2 { visibility: hidden; }
+.red-rem {font-size:17px; padding:0 8px; background: url("pict/icon.png") no-repeat scroll -60px -1px;}
 
 

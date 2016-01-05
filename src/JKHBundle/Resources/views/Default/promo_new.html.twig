@@ -235,8 +235,16 @@
     
   </div>
   <!-- .middle--> 
-  
-{% include 'footer-promo_new.html.twig' %}
+
+{% if is_auth == true %}
+  {% include 'footer-promo_new-personal.html.twig' %}
+{% endif %}
+
+{% if is_auth == false %}
+    {% include 'footer-promo_new-general.html.twig' %}
+{% endif %}
+
+
   
 </div>
 <!-- .wrapper -->
@@ -262,10 +270,14 @@
         return vars;
     }
 
+
+    
+
     $(document).ready(function() {
     
       //проверяем на запрос смены пароля, если true => вызываем диалог по смене пароля
       if (typeof getUrlVars()["changepass"] !=="undefined"){
+          $('#changepassform #emailfrom').val( getUrlVars()["email"] );
           $('#password1') 
             .css('display', 'block')
             .animate({opacity: 1, top: '0%'}, 200);
@@ -273,7 +285,7 @@
 
       //проверяем на запрос успешной регистрации, если true => вызываем окно с поздравлениями
       if (typeof getUrlVars()["emailok"] !=="undefined"){
-          $('#registration5 #email_id').val('modstore@mail.ru');
+          $('#registration5 #email_id').val( getUrlVars()["email"] );
           $('#registration5') 
             .css('display', 'block')
             .animate({opacity: 1, top: '0%'}, 200);
@@ -287,7 +299,9 @@
           url: "{{ path('_jkh_loginfirst') }}",
           data: $(this).serialize(),
           success: function(data){
-               alert("Сообщение: " + data);
+               if (data == "true") {
+                alert("Сообщение: " + data);
+               }
           }
         });
       });
@@ -312,14 +326,60 @@
       });
 
       $('#registr2').submit(function(){
-        $('#registration2') 
-              .css('display', 'none')
-              .animate({opacity: 0, top: '0%'}, 200);
-        
-        $('#registration3') 
-              .css('display', 'block')
-              .animate({opacity: 1, top: '0%'}, 200);
-        return false;
+          var message = ""; //Переменная для "ошибок""
+
+          if ( $('#email_id').val() == "" ) {
+                message = message + "Пожалуйста заполните поле с email-ом. ";     
+          }
+          
+          //проверка на корректность email
+          var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
+          var emailаddress = $('#email_id').val();
+          if (!pattern.test(emailаddress)) {
+              message = message + "Email введен не корректно. ";
+          }
+
+          //проверка полей с паролями
+          if ( $('#pass_id').val() !== $('#re-pass_id').val() ) {
+                message = message + "Поля ввода и проверки пароля не совпадают. ";
+          }
+          if ( $('#pass_id').val().length < 6 ) {
+                message = message + "Пароль должен быль более 6 символов. ";
+          }
+          
+          $.ajax({
+              type: "POST",
+              url: "{{ path('_jkh_checkdubmail') }}",
+              async: false, //асинхронно чтобы получить данные
+              data: $(this).serialize(),
+              success: function(data) {
+                //alert(data);
+                if(data == 0 ){
+                  //alert("false");
+                  message = message + "Tакой e-mail уже используется. ";
+                }
+                else { 
+                  //alert("true");
+                }
+              }
+            });
+          
+
+          if (message !=="") {
+            $('#errinfo').css('display','block');
+            $('#errinfo').text(message);
+            return false;
+          } 
+          else {
+           $('#registration2') 
+                  .css('display', 'none')
+                  .animate({opacity: 0, top: '0%'}, 200);
+            
+            $('#registration3') 
+                  .css('display', 'block')
+                  .animate({opacity: 1, top: '0%'}, 200);      
+            return false;
+          }
       });
 
       $('#registr3').submit(function(){

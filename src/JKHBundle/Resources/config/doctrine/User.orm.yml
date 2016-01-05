@@ -12,11 +12,9 @@ JKHBundle\Entity\User:
         indentNum:
             type: string
             length: '14'
-            unique: true
             column: indent_num
         litzSchet:
             type: integer
-            unique: true
             column: litz_schet
         email:
             type: string

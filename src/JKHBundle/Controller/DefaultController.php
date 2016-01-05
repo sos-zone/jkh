@@ -56,7 +56,7 @@ class DefaultController extends Controller
         if ($_SESSION["is_auth"] == true && isset($_SESSION["email"])) {
             $User = $this->getDoctrine()
             ->getRepository('JKHBundle:User')
-            ->findOneBy(array('email' => 'new_word@tut.by'));
+            ->findOneBy(array('email' => $_SESSION["email"]));
 
             return $this->render('JKHBundle:Default:personal_info.html.twig',
                                  array('is_auth' => true,
@@ -73,11 +73,11 @@ class DefaultController extends Controller
     /*   Регистрация пользователя   */
     public function registrAction()
     {
-        $indentNum = trim($_POST["indent_num"]);
-        $litzSchet = trim($_POST["litz_schet"]);
-        $email = trim($_POST["email"]);
-        $pass = trim($_POST["pass"]);
-        $fio = trim($_POST["fio"]);
+        $indentNum = htmlspecialchars( trim($_POST["indent_num"]) );
+        $litzSchet = htmlspecialchars( trim($_POST["litz_schet"]) );
+        $email = htmlspecialchars( trim($_POST["email"]) );
+        $pass = md5( htmlspecialchars( trim($_POST["pass"]) ) );
+        $fio = htmlspecialchars( trim($_POST["fio"]) );
 
 
         $User = new User();
@@ -86,6 +86,7 @@ class DefaultController extends Controller
         $User->setEmail($email);
         $User->setPass($pass);
         $User->setFio($fio);
+
 
         $em = $this->getDoctrine()->getEntityManager();
         $em->persist($User);
@@ -105,7 +106,7 @@ class DefaultController extends Controller
 
         /* send confirm email */
         $recepient = $User->getEmail($email);;
-        $sitename = "JKH-SITE";
+        $sitename = "http://jkh.soszone.ru";
         
         $message = \Swift_Message::newInstance()
                     ->setSubject("Регистрация на сайте $sitename")
@@ -137,6 +138,22 @@ class DefaultController extends Controller
         //return $this->render('JKHBundle:Default:auth5.html.twig');        
     }
 
+    public function checkdubmailAction()
+    {
+       $email = htmlspecialchars( trim($_POST["email"]) );
+        
+        $User = $this->getDoctrine()
+        ->getRepository('JKHBundle:User')
+        ->findOneBy(array('email' => $email));
+
+        if (!$User) {
+            return new Response(1);
+        }
+        else {
+            return new Response(0);
+        } 
+    }
+
     public function checkemailAction()
     {
         $request = $this -> getRequest();
@@ -166,7 +183,7 @@ class DefaultController extends Controller
 
     public function recoverypassAction()
     {
-        $email = trim($_POST["email"]);
+        $email = htmlspecialchars( trim($_POST["email"]) );
         
         $User = $this->getDoctrine()
         ->getRepository('JKHBundle:User')
@@ -178,8 +195,8 @@ class DefaultController extends Controller
         else {
             /* Отправка письма с секретным кодом на восстановление пароля */
             $secretcode = rand(); //случайное число для подтверждения email
-            $recepient = "new_word@tut.by";
-            $sitename = "JKH-SITE";
+            $recepient = $email;
+            $sitename = "http://jkh.soszone.ru";
 
 
 
@@ -250,19 +267,21 @@ class DefaultController extends Controller
         else {
             return $this->render('JKHBundle:Default:promo_new.html.twig',
                             array('is_auth' => false,
-                                  'change_pass' => true )
+                                  'change_pass' => true,
+                                  'email' => $email )
                        );
         }
     }
 
-        public function changepassAction()
+    public function changepassAction()
     {
-        $email = "new_word@tut.by";
-        $pass = trim($_POST["pass"]);
+        $email = htmlspecialchars( trim($_POST["email"]) );
+        $pass = md5( htmlspecialchars( trim($_POST["newpass"]) ) );
 
 
-        
-        $User = $em->getRepository('JKHBundle:User')->findOneBy(array('email' => $email));
+        $User = $this->getDoctrine()
+        ->getRepository('JKHBundle:User')
+        ->findOneBy(array('email' => $email));
 
         $User->setPass($pass);
         
@@ -273,12 +292,67 @@ class DefaultController extends Controller
         return new Response('Пароль изменен!');
     }
 
+    public function changeuserinfoAction()
+    {
+        $oldemail = htmlspecialchars( trim($_POST["oldemail"]) );
+        $email = htmlspecialchars( trim($_POST["email"]) );
+        $fio = htmlspecialchars( trim($_POST["fio"]) );
+
+
+        $oldpass = md5( htmlspecialchars( trim($_POST["oldpass"]) ) );
+        $pass = md5( htmlspecialchars( trim($_POST["newpass"]) ) );
+
+        $User = $this->getDoctrine()
+                                    ->getRepository('JKHBundle:User')
+                                    ->findOneBy(array('email' => $oldemail));            
+
+
+        if (!$User) {
+            return new Response(0);
+        }
+        else {
+            $User->setEmail($email);
+            $User->setFio($fio);
+            $User->setPass($pass);
+
+            $em = $this->getDoctrine()->getEntityManager();
+            $em->flush();
+
+            $_SESSION["email"] = $User->getEmail();
+
+            return new Response(1);
+        }
+
+    }
+
+    public function deluserAction()
+    {
+        $request = $this -> getRequest();
+        $email = $request->query->get('email');
+        
+        //находим в БД
+        $em = $this->getDoctrine()->getEntityManager();
+        $User = $em->getRepository('JKHBundle:User')->findOneBy(array('email' => $email));
+
+        if (!$User) {
+            return new Response('Пользователь не найден');
+        }
+        else {
+            $em->remove($User);
+            $em->flush();
+
+            $_SESSION["is_auth"] = false;
+
+            return new Response('Пользователь удален');
+        }
+    }
+
 
     public function loginAction()
     {
         
-        $email = trim($_POST["email"]);
-        $pass = trim($_POST["pass"]);
+        $email = htmlspecialchars( trim($_POST["email"]) );
+        $pass = md5( htmlspecialchars( trim($_POST["pass"]) ) );
         
         $User = $this->getDoctrine()
         ->getRepository('JKHBundle:User')
@@ -299,7 +373,7 @@ class DefaultController extends Controller
     public function loginfirstAction()
     {
         
-        $email = trim($_POST["email"]);
+        $email = htmlspecialchars( trim($_POST["email"]) );
         
         $User = $this->getDoctrine()
         ->getRepository('JKHBundle:User')
@@ -326,15 +400,15 @@ class DefaultController extends Controller
 
     public function etweetAction()
     {
-        $etweetAddress = trim($_POST["etweet_address"]);
-        $organizationId = trim($_POST["organization_id"]);
-        $etweetAuthor = trim($_POST["etweet_author"]);
-        $etweetAuthorAddress = trim($_POST["etweet_author_address"]);
-        $etweetAuthorPhone = trim($_POST["etweet_author_phone"]);
-        $etweetAuthorEmail = trim($_POST["etweet_author_email"]);
+        $etweetAddress = htmlspecialchars( trim($_POST["etweet_address"]) );
+        $organizationId = htmlspecialchars( trim($_POST["organization_id"]) );
+        $etweetAuthor = htmlspecialchars( trim($_POST["etweet_author"]) );
+        $etweetAuthorAddress = htmlspecialchars( trim($_POST["etweet_author_address"]) );
+        $etweetAuthorPhone = htmlspecialchars( trim($_POST["etweet_author_phone"]) );
+        $etweetAuthorEmail = htmlspecialchars( trim($_POST["etweet_author_email"]) );
         $etweetAnswerToEmail = true;
         $etweetAnswerToPostadds = false;
-        $etweetText = trim($_POST["etweet_text"]);
+        $etweetText = htmlspecialchars( trim($_POST["etweet_text"]) );
         $etweetFileName = "imagename.jpg";
         $etweetFilePath = "img/upload/";
 

@@ -19,22 +19,24 @@
 		<div class="personal-info">
 			<div class="personal-info_title">
 				Личные данные
-				<a herf="#" onClick='confirm("Подтвердить удаление")'><span class="delete">&nbsp;</span> Удалить учётную запись</a>
+				<a herf="#" onClick='return confirmDelete();'>
+					<span class="delete">&nbsp;</span> Удалить учётную запись</a>
 			</div><!-- .personal-info -->
 			<div class="personal-info_left">
 				<form id="changeuserinfo">
 					<div class="personal-info_left_data">
-						<div>E-mail: <input type="text" value="{{ email }}" name="email"></div>
-						<div>ФИО:<input type="text" value="{{ fio }}" name=""></div>
+						<input type="hidden" value="{{ email }}" id="oldemail_id" name="oldemail">
+						<div>E-mail: <input type="text" value="{{ email }}" id="email_id" name="email"></div>
+						<div>ФИО:<input type="text" value="{{ fio }}" name="fio"></div>
 					</div>
 					<div class="personal-info_left_password">
 						Изменить пароль<br><br>
-						<div>Старый пароль:<input type="text" value="123456"></div>
-						<div>Новый пароль:<input type="text" value="123456"></div>
-						<div>Ещё раз новый пароль:<input type="text" value="654321"></div>
+						<div>Старый пароль:<input type="password" id="oldpass_id" name="oldpass" value=""></div>
+						<div>Новый пароль:<input type="password" id="newpass_id" name="newpass" value=""></div>
+						<div>Ещё раз новый пароль:<input type="password" id="re-newpass_id" name="re-newpass" value=""></div>
 					</div>				
 					<div class="personal-info_left_bottom">
-						<input class="orange-43" type="submit" value="Сохранить">&nbsp;&nbsp;&nbsp;<span class="green-rem">&nbsp;</span>&nbsp;Изменения сохранены 
+						<input class="orange-43" type="submit" value="Сохранить">&nbsp;&nbsp;&nbsp;<span class="green-rem savechangeok1">&nbsp;</span>&nbsp;<span class="savechangeok2">Изменения сохранены<span>
 					</div>
 				</form>	
 			</div>
@@ -86,6 +88,143 @@
 
 </div><!-- .wrapper -->
 
+<script type="text/javascript">
+	//ф-ция удаления пользователя
+	function confirmDelete() {
+		if (confirm("Вы подтверждаете удаление (отмена действия будет не возможна!)?")) {
+			$.ajax({
+	          type: "POST",
+	          url: "{{ path('_jkh_deluser') }}?email={{ email }}",
+	          async: false,
+	          success: function(data){
+	               alert("Сообщение: " + data);
+	          }
+	        });
+	        location.href='{{ path('jkh_homepage') }}';
+			return false;
+		} else {
+			return false;
+		}
+	}
+
+
+	$(document).ready(function() {
+		//изменение учетных данных пользователя
+		$('#changeuserinfo').submit(function(){
+	        var message = ""; //Переменная для отлова ошибок
+	        //не верно заполненные поля:
+	        var emailvar = true, fiovar=true, oldpassvar=true, newpassvar=true;
+
+	          if ( $('#email_id').val() == "" ) {
+	                message = message + "Пожалуйста заполните поле с email-ом. ";
+	                emailvar = false;     
+	          }
+	          
+	          //проверка на корректность email
+	          var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
+	          var emailаddress = $('#email_id').val();
+	          if (!pattern.test(emailаddress)) {
+	              message = message + "Email введен не корректно. ";
+	              emailvar = false;
+	          }
+
+	          //проверка полей с паролями
+	          if ( $('#oldpass_id').val()!=="" || $('#newpass_id').val()!=="" || $('#re-newpass_id').val()!=="" ) {
+			          if ( $('#newpass_id').val()!=="" && $('#oldpass_id').val() == "" ) {
+			                message = message + "Поле для старого пароля не заполнено ";
+			                oldpassvar = false;
+			          }
+			          if ( $('#newpass_id').val() !== $('#re-newpass_id').val() ) {
+			                message = message + "Поля ввода и проверки пароля не совпадают. ";
+			                newpassvar = false;
+			          }
+			          if ( $('#re-newpass_id').val().length < 6 ) {
+			                message = message + "Пароль должен быль более 6 символов. ";
+			                newpassvar = false;
+			          }
+			          if ( $('#oldemail_id').val() !== $('#email_id').val() ) {
+				          $.ajax({
+				              type: "POST",
+				              url: "{{ path('_jkh_checkdubmail') }}",
+				              async: false, //асинхронно чтобы получить данные
+				              data: $(this).serialize(),
+				              success: function(data) {
+				                //alert(data);
+				                if(data == 0 ){
+				                  //alert("false");
+				                  message = message + "Tакой e-mail уже используется. ";
+				                  newpassvar = false;
+				                }
+				                else { 
+				                  //alert("true");
+				                }
+				              }
+				            });	          	
+				       }
+	          }
+
+          		//если ошибки есть:
+	          if (message !== "") {
+	          	if(emailvar == false) { $('.personal-info_left input[type="text"][name="email"]').addClass('personal-info_left_input-error'); }
+	          	else { $('.personal-info_left input[type="text"][name="email"]').removeClass('personal-info_left_input-error'); }
+
+
+				if(oldpassvar == false) { 
+					$('.personal-info_left input[type="password"][name="oldpass"]').addClass('personal-info_left_input-error'); 
+				}
+				else {
+					$('.personal-info_left input[type="password"][name="oldpass"]').removeClass('personal-info_left_input-error');
+				}
+				if(newpassvar == false) { 
+					$('.personal-info_left input[type="password"][name="newpass"]').addClass('personal-info_left_input-error'); 
+					$('.personal-info_left input[type="password"][name="re-newpass"]').addClass('personal-info_left_input-error'); 
+				}
+	          	else { 
+	          		$('.personal-info_left input[type="password"][name="newpass"]').removeClass('personal-info_left_input-error'); 
+	          		$('.personal-info_left input[type="password"][name="re-newpass"]').removeClass('personal-info_left_input-error'); 
+	          	}
+	         
+				$('.savechangeok1').css({'visibility':'visible'});
+				$("#changeuserinfo .personal-info_left_bottom span:first").removeClass("green-rem");
+		        $("#changeuserinfo .personal-info_left_bottom span:first").addClass("red-rem");
+
+		        $('.savechangeok2').css({'visibility':'visible'});
+	            $('.savechangeok2').text(message);
+	            return false;
+	          }
+
+	          //если ошибок нет => отправляем на сервер 
+	          else {
+		        $.ajax({
+		          type: "POST",
+		          url: "{{ path('_jkh_changeuserinfo') }}",
+		          async: false,
+		          data: $(this).serialize(),
+		          success: function(data){
+		          	if (data == 0) {
+		          		alert("Ошибка при изменении данных! Неправильно введен старый пароль.");
+		          		$('.personal-info_left input[type="password"][name="oldpass"]').addClass('personal-info_left_input-error');
+		          	}
+		          	else {
+		          		
+						$('.savechangeok1').css({'visibility':'visible'});
+						$("#changeuserinfo .personal-info_left_bottom span:first").removeClass("red-rem");
+				        $("#changeuserinfo .personal-info_left_bottom span:first").addClass("green-rem");
+		          		
+		          		$('.savechangeok2').css({'visibility':'visible'});
+	            		$('.savechangeok2').text("Изменения сохранены");
+
+		          		alert('Данные успешно изменены.');
+		          	}
+		               
+		          }
+		        });   
+	            return false;
+	          }
+      });
+
+	});
+</script>
 
 </body>
 </html>
