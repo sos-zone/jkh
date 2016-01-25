@@ -920,7 +920,10 @@ table.zebra tr:nth-child(odd) {background: #FFF}
 
 .div-registration_wrapper-2 {padding: 39px 55px 39px;}
 #registration4 .div-registration_wrapper-2, #registration5 .div-registration_wrapper-2 {padding: 30px 60px 50px;}
-.div-registration_e-mail input {width:98%; border: 2px solid #d14d07; }
+.div-registration_e-mail input {
+    width:98%; 
+    /*border: 2px solid #d14d07; */
+}
 .div-registration_password {    float: left;
     margin-right: 7px;
     width: 48%;}

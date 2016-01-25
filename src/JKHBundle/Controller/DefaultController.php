@@ -13,16 +13,18 @@ class DefaultController extends Controller
     /*   Проверка авторизирован ли пользователь     */
     public function check_auth($pagename)
     {
-        if (!isset($_SESSION["is_auth"])) { $_SESSION["is_auth"] = false; }
+        $session = $this->getRequest()->getSession();
+
+        if ($session->get('is_auth')=="") { $session->set('is_auth', false); }
         
-        if ($_SESSION["is_auth"] == true) {
+        if ($session->get('is_auth') == true) {
         $User = $this->getDoctrine()
                     ->getRepository('JKHBundle:User')
-                    ->findOneBy(array('email' => $_SESSION["email"]));
+                    ->findOneBy(array('email' => $session->get('email')));
 
         return array('pname' => "JKHBundle:Default:$pagename",
                          'argum' => array('is_auth' => true,
-                                            'fio' => $_SESSION["fio"] )
+                                            'fio' => $session->get('fio') )
                          );
         }
         else {
@@ -43,20 +45,29 @@ class DefaultController extends Controller
     {
         $answer = $this->check_auth('advert.html.twig');
         return $this->render($answer['pname'],$answer['argum']);
+        //return new Response('testok OK!');
     }
 
     public function orgbaseAction()
     {
-         $answer = $this->check_auth('catalog.html.twig');
+        $answer = $this->check_auth('catalog.html.twig');
         return $this->render($answer['pname'],$answer['argum']);
     }
 
+    public function testokAction()
+    {
+        return new Response('testok OK!');
+        //$answer = $this->check_auth('advert.html.twig');
+        //return $this->render($answer['pname'],$answer['argum']);
+    }
     public function personalcabAction()
     {
-        if ($_SESSION["is_auth"] == true && isset($_SESSION["email"])) {
+        $session = $this->getRequest()->getSession();
+
+        if ($session->get('is_auth') == true && $session->get('email') !=="" ) {
             $User = $this->getDoctrine()
             ->getRepository('JKHBundle:User')
-            ->findOneBy(array('email' => $_SESSION["email"]));
+            ->findOneBy(array('email' => $session->get('email')));
 
             return $this->render('JKHBundle:Default:personal_info.html.twig',
                                  array('is_auth' => true,
@@ -76,7 +87,7 @@ class DefaultController extends Controller
         $indentNum = htmlspecialchars( trim($_POST["indent_num"]) );
         $litzSchet = htmlspecialchars( trim($_POST["litz_schet"]) );
         $email = htmlspecialchars( trim($_POST["email"]) );
-        $pass = md5( htmlspecialchars( trim($_POST["pass"]) ) );
+        $pass = ( htmlspecialchars( trim($_POST["pass"]) ) );//md5
         $fio = htmlspecialchars( trim($_POST["fio"]) );
 
 
@@ -88,7 +99,7 @@ class DefaultController extends Controller
         $User->setFio($fio);
 
 
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $em->persist($User);
         $em->flush();
 
@@ -99,7 +110,7 @@ class DefaultController extends Controller
         $Checker->setEmail($email);
         $Checker->setCheckmailcode($secretcode);
 
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $em->persist($Checker);
         $em->flush();
 
@@ -108,7 +119,7 @@ class DefaultController extends Controller
         $recepient = $User->getEmail($email);;
         $sitename = "http://jkh.soszone.ru";
         
-        $message = \Swift_Message::newInstance()
+        @$message = \Swift_Message::newInstance()
                     ->setSubject("Регистрация на сайте $sitename")
                     ->setFrom('info@site.com')
                     ->setTo($recepient)
@@ -131,7 +142,7 @@ class DefaultController extends Controller
                         'text/plain'
                     )
             ;
-        $this->get('mailer')->send($message);
+        @$this->get('mailer')->send($message);
 
 
         return new Response('Created User id '.$User->getId());
@@ -156,6 +167,8 @@ class DefaultController extends Controller
 
     public function checkemailAction()
     {
+        $session = $this->getRequest()->getSession();
+
         $request = $this -> getRequest();
         $checkmailcode = $request->query->get('code');
         $email = $request->query->get('email');
@@ -168,12 +181,12 @@ class DefaultController extends Controller
                     );
 
         if (!$Checker) {
-            $_SESSION["is_auth"] = false;
+            $session->set('is_auth', false);
             return new Response('К сожалению регистрационных данных не найдено. Повторите попытку');
         }
         else {
-            $_SESSION["is_auth"] = true;
-            //return new Response('Спасибо за регистрацию. Добро пожаловать.');
+            $session->set('is_auth', true);
+            // return new Response('Спасибо за регистрацию. Добро пожаловать.');
             // return $this->render('JKHBundle:Default:promo_new.html.twig',
             //                 array('is_auth' => false,
             //                       'emailok' => true )
@@ -190,7 +203,7 @@ class DefaultController extends Controller
         ->findOneBy(array('email' => $email));
 
         if (!$User) {
-            return new Response('Данного email не найдено. Проверьте правильность написания.');
+            return new Response(0);
         }
         else {
             /* Отправка письма с секретным кодом на восстановление пароля */
@@ -210,18 +223,18 @@ class DefaultController extends Controller
                 $Checker->setEmail($recepient);
                 $Checker->setCheckmailcode($secretcode);            
 
-                $em = $this->getDoctrine()->getEntityManager();
+                $em = $this->getDoctrine()->getManager();
                 $em->persist($Checker);
                 $em->flush();
             }
             else {
                 $Checker->setCheckmailcode($secretcode);
-                $em = $this->getDoctrine()->getEntityManager();
+                $em = $this->getDoctrine()->getManager();
                 $em->flush();
             }
 
 
-            $message = \Swift_Message::newInstance()
+            @$message = \Swift_Message::newInstance()
                         ->setSubject("Запрос на восстановление пароля с сайта $sitename")
                         ->setFrom('info@site.com')
                         ->setTo($recepient)
@@ -244,17 +257,18 @@ class DefaultController extends Controller
                             'text/plain'
                         )
                 ;
-            $this->get('mailer')->send($message);
+            @$this->get('mailer')->send($message);
 
-            return new Response('На указанный емаил отправлены инструкции по восстановлению пароля');            
+            return new Response(1);            
         }
     }
 
-    public function recoverypassletterAction($checkmailcode)
+    public function recoverypassletterAction()
     {
         //получаем значение email из запроса
         $request = $this -> getRequest();
         $email = $request->query->get('email');
+        $checkmailcode = $request->query->get('code');
         
         //сравниваем со значениями в БД
         $Checker = $this->getDoctrine()
@@ -276,7 +290,7 @@ class DefaultController extends Controller
     public function changepassAction()
     {
         $email = htmlspecialchars( trim($_POST["email"]) );
-        $pass = md5( htmlspecialchars( trim($_POST["newpass"]) ) );
+        $pass = ( htmlspecialchars( trim($_POST["newpass"]) ) );//md5
 
 
         $User = $this->getDoctrine()
@@ -285,7 +299,7 @@ class DefaultController extends Controller
 
         $User->setPass($pass);
         
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $em->flush();
 
         //return $this->redirect($this->generateUrl('jkh_homepage'));
@@ -294,13 +308,16 @@ class DefaultController extends Controller
 
     public function changeuserinfoAction()
     {
+        $session = $this->getRequest()->getSession();
+
         $oldemail = htmlspecialchars( trim($_POST["oldemail"]) );
         $email = htmlspecialchars( trim($_POST["email"]) );
         $fio = htmlspecialchars( trim($_POST["fio"]) );
 
 
-        $oldpass = md5( htmlspecialchars( trim($_POST["oldpass"]) ) );
-        $pass = md5( htmlspecialchars( trim($_POST["newpass"]) ) );
+        $oldpass = ( htmlspecialchars( trim($_POST["oldpass"]) ) );//md5
+        $pass = ( htmlspecialchars( trim($_POST["newpass"]) ) );//md5
+
 
         $User = $this->getDoctrine()
                                     ->getRepository('JKHBundle:User')
@@ -311,14 +328,16 @@ class DefaultController extends Controller
             return new Response(0);
         }
         else {
+            if ( $oldpass=="" && $pass=="" ) {$pass = $User->getPass();}
+
             $User->setEmail($email);
             $User->setFio($fio);
             $User->setPass($pass);
 
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $em->flush();
 
-            $_SESSION["email"] = $User->getEmail();
+            $session->set('email', $User->getEmail());
 
             return new Response(1);
         }
@@ -327,11 +346,13 @@ class DefaultController extends Controller
 
     public function deluserAction()
     {
+        $session = $this->getRequest()->getSession();
+
         $request = $this -> getRequest();
         $email = $request->query->get('email');
         
         //находим в БД
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $User = $em->getRepository('JKHBundle:User')->findOneBy(array('email' => $email));
 
         if (!$User) {
@@ -341,7 +362,7 @@ class DefaultController extends Controller
             $em->remove($User);
             $em->flush();
 
-            $_SESSION["is_auth"] = false;
+            $session->set('is_auth', false);
 
             return new Response('Пользователь удален');
         }
@@ -350,8 +371,10 @@ class DefaultController extends Controller
 
     public function loginAction()
     {
+        $session = $this->getRequest()->getSession();
+
         $email = htmlspecialchars( trim($_POST["email"]) );
-        $pass = md5( htmlspecialchars( trim($_POST["pass"]) ) );
+        $pass = ( htmlspecialchars( trim($_POST["pass"]) ) );//md5
         
 
         $User = $this->getDoctrine()
@@ -360,29 +383,31 @@ class DefaultController extends Controller
 
 
         if (!$User) {
-            $_SESSION["is_auth"] = false;
+            $session->set('is_auth', false);
             return new Response("false");
         }
         else {
-            $_SESSION["is_auth"] = true;
-            $_SESSION["email"] = $email;
-            $_SESSION["fio"] = $User->getFio();
+            $session->set('is_auth', true);
+            $session->set('email', $email);
+            $session->set('fio', $User->getFio());
             return new Response("true");
         }
     }
 
     public function loginfirstAction()
     {
+        $session = $this->getRequest()->getSession();
+
         $email = htmlspecialchars( trim($_POST["email"]) );
         $code = htmlspecialchars( trim($_POST["code"]) );
         
         
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $Checker = $em->getRepository('JKHBundle:Checker')->findOneBy(array('email' => $email, 'checkmailcode' => $code));
 
 
         if (!$Checker) {
-            $_SESSION["is_auth"] = false;
+            $session->set('is_auth', false);
             return new Response("Данного проверочного кода не найдено. Возможно вы уже подтверждали Ваш email. Авторизируйтесь через панель ввода eмаил и пароля.");
         }
         else {
@@ -397,13 +422,13 @@ class DefaultController extends Controller
 
 
             if (!$User) {
-                $_SESSION["is_auth"] = false;
+                $session->set('is_auth', false);
                 return new Response("false: no user");
             }
             else {
-                $_SESSION["is_auth"] = true;
-                $_SESSION["email"] = $email;
-                $_SESSION["fio"] = $User->getFio();
+                $session->set('is_auth', true);
+                $session->set('email', $email);
+                $session->set('fio', $User->getFio());
                 return new Response("true");
             }
         }
@@ -411,8 +436,9 @@ class DefaultController extends Controller
 
     public function logoutAction()
     {
-        $_SESSION["is_auth"] = false;
-        unset($_SESSION["email"]);
+        $session = $this->getRequest()->getSession();
+        $session->set('is_auth', false);
+        $session->set('email', '');
         return new Response('До свидания'); 
     }
 
@@ -453,7 +479,7 @@ class DefaultController extends Controller
         $Etweet->setEtweetFilePath($etweetFilePath);
 
 
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $em->persist($Etweet);
         $em->flush();
 

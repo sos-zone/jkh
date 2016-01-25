@@ -279,7 +279,7 @@
       </div>
       <div class="remark-2">Все поля обязательны для заполнения</div>
     </div>
-    <form id="e-tweet-form">
+    <form id="e-tweet-form" enctype='multipart/form-data'>
       <table width='100%'>
         <tr>
           <td width="150">Место обращения:</td>
@@ -290,7 +290,7 @@
           <td rowspan="5" class="right-row">
             Вы также можете прикрепить дополнительные документы, более полно раскрывающие суть вашего обращения:<br>
             <div style="position:relative">
-            <input   class="input-file" type="file" name="etweet_file_name"  disabled>&nbsp;<span class="delete">&nbsp;</span><br>
+            <input   class="input-file" type="file" name="etweetfile">&nbsp;<span class="delete">&nbsp;</span><br>
             </div>
             <div class="remark">Допустимые форматы: doc, docx, rtf, pdf, txt, jpg, rar, zip. Размер не более 1МБ.</div> 
           </td>       
@@ -535,7 +535,7 @@
           <input type="submit" value="Далее">
       </form>
     </div>
-    <div class="div-registration_footer">
+    <div class="div-registration_footer" style="display:none;">
       Сожалеем, ваш дом не подключён к нашей системе.
       Вы можете зарегистрироваться с другим лицевым
       счётом или оставить заявку на подключение этого.
@@ -559,7 +559,7 @@
     <div class="div-registration_wrapper-2">
       <form id="registr2">
         <div class="div-registration_e-mail">
-          <div class="orange_delete">E-mail</div>
+          <div class="">E-mail</div>
           <input type="text" id="email_id" name="email">
         </div>
         <div class="div-registration_password">
